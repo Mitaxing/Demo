@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kupaworld.androidtv.percent.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_main_bg"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_test_title"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_100" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/more_settings_bg"
+        android:divider="@drawable/layout_deliver"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_widthPercent="70%">
+
+        <FrameLayout
+            android:id="@+id/network_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/tv_focus_top_bg"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:text="WIFI"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/network_wifi_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="30dp"
+                android:text="KupaSoftware"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/network_blue"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/tv_focus_center_bg"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:text="蓝牙"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/network_blue_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="30dp"
+                android:text="未开启"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/network_line"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/tv_focus_bottom_bg"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:text="有线连接"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/network_line_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="30dp"
+                android:text="未连接"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </FrameLayout>
+
+    </LinearLayout>
+</com.kupaworld.androidtv.percent.PercentLinearLayout>

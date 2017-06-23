@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_main_bg">
+
+    <include
+        layout="@layout/layout_test_title"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <ImageView
+        android:layout_width="@dimen/w_647"
+        android:layout_height="@dimen/h_645"
+        android:layout_marginLeft="@dimen/w_170"
+        android:layout_marginTop="@dimen/h_256"
+        android:src="@mipmap/icon_update" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w_960"
+        android:layout_marginTop="@dimen/h_300"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kupa TV"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_60" />
+
+        <Space
+            android:layout_width="@dimen/w_35"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/update_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v1.0.1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_36" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/update_info_layout"
+        android:layout_width="@dimen/w_537"
+        android:layout_height="@dimen/h_160"
+        android:layout_marginLeft="@dimen/w_960"
+        android:layout_marginTop="@dimen/h_441"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/update_new_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最新版本：v1.0.2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_36" />
+
+        <TextView
+            android:id="@+id/update_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="发布日期：2016.12.16"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_36" />
+
+        <TextView
+            android:id="@+id/update_describe"
+            android:layout_width="@dimen/w_670"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_36"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/update_watch_all"
+            android:layout_width="@dimen/w_200"
+            android:layout_height="@dimen/h_48"
+            android:layout_gravity="bottom"
+            android:background="@drawable/watch_all_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="新版详情"
+            android:textColor="@color/white" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/update_no_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w_960"
+        android:layout_marginTop="@dimen/h_380"
+        android:text="当前版本已是最新版本"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h_26" />
+
+    <TextView
+        android:id="@+id/update_btn"
+        android:layout_width="@dimen/w_388"
+        android:layout_height="@dimen/h_80"
+        android:layout_marginLeft="@dimen/w_960"
+        android:layout_marginTop="@dimen/h_670"
+        android:background="@drawable/btn_update_selector"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="暂无更新"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h_36" />
+
+    <FrameLayout
+        android:id="@+id/update_progress_layout"
+        android:layout_width="@dimen/w_398"
+        android:layout_height="@dimen/h_88"
+        android:layout_marginLeft="@dimen/w_955"
+        android:layout_marginTop="@dimen/h_666"
+        android:visibility="gone">
+
+        <com.kupaworld.androidtv.view.DynamicWave
+            android:id="@+id/update_wave"
+            android:layout_width="@dimen/w_388"
+            android:layout_height="@dimen/h_80"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="@dimen/w_398"
+            android:layout_height="@dimen/h_88"
+            android:background="@drawable/cover_wave_progress" />
+
+        <TextView
+            android:id="@+id/update_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="下载中   45%"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_36" />
+    </FrameLayout>
+</FrameLayout>

@@ -1,0 +1,559 @@
+<com.kupaworld.androidtv.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_main_bg"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <include
+        layout="@layout/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_142" />
+
+    <com.kupaworld.androidtvwidget.view.FrameMainLayout
+        android:id="@+id/main_lay2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/h_142">
+
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_movie"
+            android:layout_width="@dimen/w_881"
+            android:layout_height="@dimen/h_462"
+            android:layout_marginLeft="@dimen/w_55"
+            android:background="@mipmap/kupatv_mainpage_movie_one"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+
+            <ImageView
+                android:id="@+id/tip_movie_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/tip_movie_over"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/cover_movie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_movie"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_130"
+                android:src="@mipmap/tip_movie"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_movie_tip"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/h_70"
+                android:gravity="center_horizontal|center"
+                android:text="@string/movie"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_movie_life"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/mainpage_item_bottom_bg"
+                android:gravity="center_horizontal|center"
+                android:text="@string/movie"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+        <!--
+                    <com.kupaworld.androidtvwidget.view.LabelView xmlns:lv="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/lv_movie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:paddingLeft="@dimen/w_30"
+                        android:paddingRight="@dimen/w_30"
+                        android:visibility="visible"
+                        lv:lv_background_color="@color/black_50"
+                        lv:lv_fill_triangle="true"
+                        lv:lv_gravity="TOP_RIGHT"
+                        lv:lv_text="影视"
+                        lv:lv_text_color="@color/white"
+                        lv:lv_text_size="@dimen/w_35" />
+                </com.kupaworld.androidtvwidget.view.ReflectItemView>
+        -->
+
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_music"
+            android:layout_width="@dimen/w_409"
+            android:layout_height="@dimen/h_462"
+            android:layout_marginLeft="@dimen/w_986"
+            android:layout_marginTop="@dimen/h_8"
+            android:background="@mipmap/kupatv_mainpage_music_one"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:id="@+id/tip_music_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/tip_music_over"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/cover_music"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_music"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_130"
+                android:src="@mipmap/tip_music"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_music_tip"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/h_70"
+                android:gravity="center_horizontal|center"
+                android:text="@string/music"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_music_area"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/mainpage_item_bottom_bg"
+                android:gravity="center_horizontal|center"
+                android:text="@string/music"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_game"
+            android:layout_width="@dimen/h_409"
+            android:layout_height="@dimen/h_462"
+
+            android:layout_marginLeft="@dimen/w_1450"
+            android:layout_marginTop="@dimen/h_8"
+            android:background="@mipmap/game_four"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:id="@+id/tip_game_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/tip_game_over"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/cover_game"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_game"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_130"
+                android:src="@mipmap/tip_game"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_game_tip"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/h_70"
+                android:gravity="center_horizontal|center"
+                android:text="@string/game"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_game_center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_100"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/mainpage_item_bottom_bg"
+                android:gravity="center_horizontal|center"
+                android:text="@string/game"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_app"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_55"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_apps_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_235"
+                android:padding="38dp"
+                android:src="@mipmap/kupatv_myapp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:text="我的应用"
+                android:textSize="23sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_news"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_364"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_network_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_233"
+                android:padding="35dp"
+                android:src="@mipmap/kupatv_news" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <View
+                android:id="@+id/cover_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/news"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_ie"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_673"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_debug_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_237"
+                android:padding="36dp"
+                android:src="@mipmap/kupatv_browser" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <View
+                android:id="@+id/cover_ie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_ie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_ie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/browser"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_app_store"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_982"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_file_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_235"
+                android:padding="37dp"
+                android:src="@mipmap/kupatv_appstore_one" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <View
+                android:id="@+id/cover_store"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/market"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_file"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_1291"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_wless_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_235"
+                android:padding="37dp"
+                android:src="@mipmap/kupatv_filemanager" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="文件管理"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+
+        <com.kupaworld.androidtvwidget.view.ReflectItemView
+            android:id="@+id/main_setting"
+            android:layout_width="@dimen/w_264"
+            android:layout_height="@dimen/h_310"
+            android:layout_marginLeft="@dimen/w_1600"
+            android:layout_marginTop="@dimen/h_540"
+            android:background="@drawable/main_setting_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:isShape="true"
+            app:radius="@dimen/w_10">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/h_235"
+                android:padding="37dp"
+                android:src="@mipmap/kupatv_setting" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="@dimen/h_235"
+                android:background="@color/gray_cc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="系统设置"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+    </com.kupaworld.androidtvwidget.view.FrameMainLayout>
+
+    <!-- 最顶层边框 -->
+    <com.kupaworld.androidtvwidget.view.MainUpView
+        android:id="@+id/mainUpView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/white_light_10" />
+
+</com.kupaworld.androidtv.percent.PercentRelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 标题栏id -->
+
+    <!-- 菜单ID -->
+    <item type="id" name="menu_1_1"/>
+    <item type="id" name="menu_1_2"/>
+    <item type="id" name="menu_1_3"/>
+    <item type="id" name="menu_1_4"/>
+    <item type="id" name="menu_1_5"/>
+</resources>

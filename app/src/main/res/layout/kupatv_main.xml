@@ -1,0 +1,277 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainpage_background"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h_204"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/w_297"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginLeft="@dimen/w_96"
+            android:layout_marginTop="@dimen/h_72"
+            android:background="@drawable/mainpage_kupalogo" />
+
+        <ImageView
+            android:layout_width="@dimen/h_50"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginLeft="@dimen/w_1572"
+            android:layout_marginTop="@dimen/h_72"
+            android:background="@drawable/mainpage_notify" />
+
+        <ImageView
+            android:layout_width="@dimen/h_50"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginLeft="@dimen/w_1632"
+            android:layout_marginTop="@dimen/h_72"
+            android:background="@drawable/mainpage_wifi" />
+
+        <ImageView
+            android:layout_width="@dimen/h_50"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginLeft="@dimen/w_1689"
+            android:layout_marginTop="@dimen/h_72"
+            android:background="@drawable/mainpage_user" />
+
+        <!--<ImageView-->
+        <!--android:id="@+id/split"-->
+        <!--android:layout_width="@dimen/w_20"-->
+        <!--android:layout_height="@dimen/h_50"-->
+        <!--android:layout_marginTop="@dimen/h_72"-->
+        <!--android:layout_marginLeft="@dimen/w_1762"-->
+        <!--android:background="@drawable/mainpage_split"/>-->
+
+        <TextView
+            android:id="@+id/mainPage_time"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginLeft="@dimen/w_1750"
+            android:layout_marginTop="@dimen/h_78"
+            android:text="@string/mainPage_time"
+            android:textColor="#FFFFFF" />
+
+    </FrameLayout>
+
+    <com.kupaworld.androidtvwidget.view.SmoothHorizontalScrollView
+        android:id="@+id/hscroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <com.kupaworld.androidtvwidget.view.FrameMainLayout
+            android:id="@+id/main_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/w_100">
+
+            <!-- 广告 -->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/guanggao"
+                android:layout_width="@dimen/w_840"
+                android:layout_height="@dimen/h_394"
+                android:layout_marginLeft="@dimen/w_96"
+                android:layout_marginTop="@dimen/h_204"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/listview_lay"
+                app:isShape="true"
+                app:radius="@dimen/w_10">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mainpage_advertisement" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--我的应用-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/wodeyingyong"
+                android:layout_width="@dimen/w_404"
+                android:layout_height="@dimen/h_246"
+                android:layout_marginLeft="@dimen/w_96"
+                android:layout_marginTop="@dimen/h_630"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mainpage_myapp_icon" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--手机同屏-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/shoujitongping"
+                android:layout_width="@dimen/w_404"
+                android:layout_height="@dimen/h_246"
+                android:layout_marginLeft="@dimen/w_532"
+                android:layout_marginTop="@dimen/h_630"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shoujitongping" />
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--影视-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/yingshi"
+                android:layout_width="@dimen/w_412"
+                android:layout_height="@dimen/h_672"
+                android:layout_marginLeft="@dimen/w_968"
+                android:layout_marginTop="@dimen/h_204"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/yingshi" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!-- main_music -->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/yinyue"
+                android:layout_width="@dimen/w_412"
+                android:layout_height="@dimen/h_672"
+                android:layout_marginLeft="@dimen/w_1412"
+                android:layout_marginTop="@dimen/h_204"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/yinyue" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!-- 直播 -->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/zhibo"
+                android:layout_width="@dimen/w_412"
+                android:layout_height="@dimen/h_672"
+                android:layout_marginLeft="@dimen/w_1856"
+                android:layout_marginTop="@dimen/h_204"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/zhibo" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--应用商店-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/yingyongshangdian"
+                android:layout_width="@dimen/w_840"
+                android:layout_height="@dimen/h_394"
+                android:layout_marginLeft="@dimen/h_2300"
+                android:layout_marginTop="@dimen/h_204"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/yingyongshangdian" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--文件-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/wenjian"
+                android:layout_width="@dimen/w_404"
+                android:layout_height="@dimen/h_246"
+                android:layout_marginLeft="@dimen/h_2300"
+                android:layout_marginTop="@dimen/h_630"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mainpage_file_icon" />
+
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+
+            <!--设置-->
+            <com.kupaworld.androidtvwidget.view.ReflectItemView
+                android:id="@+id/shezhi"
+                android:layout_width="@dimen/w_404"
+                android:layout_height="@dimen/h_246"
+                android:layout_marginLeft="@dimen/w_2736"
+                android:layout_marginTop="@dimen/h_630"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:isReflect="true"
+                app:isShape="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mainpage_setting_icon" />
+            </com.kupaworld.androidtvwidget.view.ReflectItemView>
+        </com.kupaworld.androidtvwidget.view.FrameMainLayout>
+    </com.kupaworld.androidtvwidget.view.SmoothHorizontalScrollView>
+    <!-- 最顶层边框 -->
+    <com.kupaworld.androidtvwidget.view.MainUpView
+        android:id="@+id/mainUpView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:upImageRes="@drawable/white_light_10" />
+
+</RelativeLayout>

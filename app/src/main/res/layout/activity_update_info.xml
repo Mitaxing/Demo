@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="@dimen/w_1750"
+        android:layout_height="@dimen/h_920"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/h_120"
+        android:background="#182848">
+
+        <LinearLayout
+            android:layout_width="@dimen/w_1375"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w_180"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/h_105">
+
+            <FrameLayout
+                android:layout_width="@dimen/w_333"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kupa TV"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h_60" />
+
+                <TextView
+                    android:id="@+id/update_info_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="@dimen/h_9"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h_36" />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h_20" />
+
+            <TextView
+                android:id="@+id/update_info_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布日期：2017/06/05 13:59:59"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_26" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h_80" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/h_36"
+                android:layout_height="wrap_content"
+                android:text="注意：点击更新及下载更新完成后会自动进行安装，并重启。"
+                android:textColor="@color/white" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h_80" />
+
+            <TextView
+                android:id="@+id/update_info_describe"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/h_36"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

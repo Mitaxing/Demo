@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 标题栏 -->
+
+    <!-- 滚动窗口 -->
+    <dimen name="fading_edge">80dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <color name="default_circular_color">#4c99d9</color>
+    <color name="default_circular_progress_color">#ffffff</color>
+    <dimen name="edge">3dp</dimen>
+
+</resources>

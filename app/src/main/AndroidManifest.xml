@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
+    package="com.kupaworld.androidtv">
+
+    <!-- WindowManger 权限(浮动窗口) -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.REBOOT"/>
+    <!--
+    如果你正在开发一个运行在移动设备（手机，可穿戴，平板等等）也包括TV的应用，设置required属性为false。
+    因为如果设置为true，你的应用将仅能运行在用Leanback UI的设备上。
+    -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
+    <!--
+    运行在TV设备上的应用不依靠触屏去输入。为了清楚表明这一点，
+    TV应用的manifest必须声明android.hardware.touchscreen为不需要。
+    这个设置表明应用能够工作在TV设备上，并且也是Google Play认定你的应用为TV应用的要求。
+    -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:name=".application.SysApplication"
+        android:allowBackup="true"
+        android:banner="@mipmap/logo"
+        android:configChanges="keyboard|keyboardHidden|navigation"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- 主Activity -->
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <!-- 可以将应用程序显示在主界面上 -->
+                <!-- <category android:name="android.intent.category.LEANBACK_LAUNCHER" /> -->
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.kupaworld.androidtv.service.MyAccessibilityService"
+            android:label="我的智能安装"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <activity android:name=".activity.MyAppActivity" />
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.WenjianActivity" />
+        <activity android:name=".activity.MoreSettingsActivity" />
+        <activity android:name=".activity.AdjustShowActivity" />
+        <activity android:name=".activity.CheckUpdateActivity" />
+        <activity android:name=".activity.NetworkActivity" />
+        <activity android:name=".activity.UpdateInfoActivity" android:theme="@style/myTransparent"/>
+
+    </application>
+
+</manifest>
