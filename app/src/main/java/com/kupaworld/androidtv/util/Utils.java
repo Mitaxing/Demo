@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -293,6 +295,14 @@ public class Utils {
             ex.printStackTrace();
         }
         return macSerial;
+    }
+
+    // 获取本机的物理地址
+    public static String getLocalMacAddress(Context context) {
+        WifiManager wifi = (WifiManager) context.getApplicationContext()
+                .getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wifi.getConnectionInfo();
+        return info.getMacAddress();
     }
 
     /**

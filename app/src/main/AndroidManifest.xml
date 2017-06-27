@@ -18,6 +18,16 @@
     <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.REBOOT"/>
+
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <!--
     如果你正在开发一个运行在移动设备（手机，可穿戴，平板等等）也包括TV的应用，设置required属性为false。
     因为如果设置为true，你的应用将仅能运行在用Leanback UI的设备上。
@@ -60,20 +70,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name="com.kupaworld.androidtv.service.MyAccessibilityService"
-            android:label="我的智能安装"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
-        </service>
-
         <activity android:name=".activity.MyAppActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.WenjianActivity" />
@@ -83,6 +79,11 @@
         <activity android:name=".activity.NetworkActivity" />
         <activity android:name=".activity.UpdateInfoActivity" android:theme="@style/myTransparent"/>
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="tk45IUT05bAC2ElHMrwapoWLvP5irwpQ" />
     </application>
 
 </manifest>

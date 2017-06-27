@@ -18,12 +18,10 @@
     <dimen name="w_278">278.0px</dimen>
     <dimen name="w_297">297.0px</dimen>
     <dimen name="w_364">364.0px</dimen>
-    <dimen name="w_400">400.0px</dimen>
     <dimen name="w_404">404.0px</dimen>
     <dimen name="w_409">409.0px</dimen>
     <dimen name="w_412">412.0px</dimen>
     <dimen name="w_450">450.0px</dimen>
-    <dimen name="w_460">460.0px</dimen>
     <dimen name="w_532">532.0px</dimen>
     <dimen name="w_670">670.0px</dimen>
     <dimen name="w_673">673.0px</dimen>

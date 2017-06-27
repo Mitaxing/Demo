@@ -1,6 +1,8 @@
 package com.kupaworld.androidtv.activity;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +16,7 @@ import com.kupaworld.androidtv.download.DownloadInfo;
 import com.kupaworld.androidtv.download.DownloadManager;
 import com.kupaworld.androidtv.download.DownloadService;
 import com.kupaworld.androidtv.entity.SystemInfo;
+import com.kupaworld.androidtv.util.BaiDuMapUtils;
 import com.kupaworld.androidtv.util.Contacts;
 import com.kupaworld.androidtv.util.JsonUtils;
 import com.kupaworld.androidtv.util.UpdateUtils;
@@ -39,7 +42,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
 
     private TextView mTvNoVersion;
     private FrameLayout mFlUpdate;
-    private TextView mTvVersion, mTvNewVersion, mTvDate, mTvDesc, mTvTitle, mTvWatchAll, mTvUpdate;
+    private TextView mTvVersion, mTvNewVersion, mTvDate, mTvDesc, mTvTitle, mTvWatchAll, mTvUpdate, mTvLocalUpdate;
     private DynamicWave mDwProgress;
     private FrameLayout mFlProgress;
 
@@ -71,17 +74,19 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
      * 检测系统升级
      */
     private void checkSystemUpdate() {
-        String mac = Utils.getCurrentMac();
+        String mac = Utils.getLocalMacAddress(this);
 //        Utils.toast(this, "mac : " + mac);
         if (!TextUtils.isEmpty(mac)) {
             int version = Utils.getVersionCode(this);
             HttpUtils http = new HttpUtils(10 * 1000);
             RequestParams params = new RequestParams();
             params.addBodyParameter("mac", mac);
+            params.addBodyParameter("detailAddress", BaiDuMapUtils.getAddress(this));
             params.addBodyParameter("version", String.valueOf(version));
             http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
+                    Utils.log("系统更新：" + responseInfo.result);
                     systemInfo = JsonUtils.resolveResult(CheckUpdateActivity.this, responseInfo.result);
                     if (null != systemInfo) {
                         resolveResult();
@@ -203,6 +208,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             mTvDesc.setText("更新内容：" + systemInfo.getVersionInformation());
             mTvDate.setText("发布日期：" + Utils.formatDate(systemInfo.getUpdateTime()));
             mFlUpdate.setVisibility(View.VISIBLE);
+            mTvWatchAll.setVisibility(View.VISIBLE);
             mTvNoVersion.setVisibility(View.GONE);
             if (!isDownload) {
                 mTvUpdate.setText("立即升级");
@@ -211,6 +217,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         } else {
             mTvNoVersion.setVisibility(View.VISIBLE);
             mFlUpdate.setVisibility(View.GONE);
+            mTvWatchAll.setVisibility(View.GONE);
             mTvUpdate.setBackgroundResource(R.drawable.btn_update_normal);
             mTvNoVersion.setVisibility(View.VISIBLE);
             mTvUpdate.setText("检测更新");
@@ -268,12 +275,14 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         mTvWatchAll = (TextView) findViewById(R.id.update_watch_all);
         mDwProgress = (DynamicWave) findViewById(R.id.update_wave);
         mFlProgress = (FrameLayout) findViewById(R.id.update_progress_layout);
+        mTvLocalUpdate = (TextView) findViewById(R.id.local_update_btn);
 
         mTvTitle.setText("设置  |  系统升级");
         mTvVersion.setText("v" + Utils.getVersionName(this));
 
         mTvWatchAll.setOnClickListener(this);
         mTvUpdate.setOnClickListener(this);
+        mTvLocalUpdate.setOnClickListener(this);
     }
 
     @Override
@@ -293,7 +302,33 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("describe", systemInfo.getVersionInformation());
                 startActivity(intent);
                 break;
+
+            case R.id.local_update_btn:
+                startLocalRecovery();
+                break;
         }
     }
 
+    private boolean checkPackage(String packageName) {
+        if (packageName == null || "".equals(packageName))
+            return false;
+        try {
+            ApplicationInfo info = getPackageManager().getApplicationInfo(
+                    packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void startLocalRecovery() {
+        if (checkPackage("com.softwinner.settingsassist") && checkPackage("com.softwinner.TvdFileManager")) {
+            Utils.log("apk exist!");
+            Intent intent = new Intent("softwinner.intent.action.RECOVREY");
+            startActivity(intent);
+        } else {
+            //显示Toast
+            Utils.toast(this, "暂不支持本地升级");
+        }
+    }
 }

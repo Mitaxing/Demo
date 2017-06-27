@@ -24,7 +24,5 @@
     <string name="wenJianLeiBie">wenJianLeiBie</string>
     <string name="item1">QQ</string>
     <string name="mainPage_time">09:19</string>
-    <string name="accessibility_service_description">    KUPA智能安装服务，是让您在每次安装和更新应用时，智能帮您点击所要操作的“下一步”或者“安装”按钮，
-        从而免去您相关的繁琐操作。此功能完全不需要ROOT您的设备，只要您打开服务，在弹窗提示需要您的授权的时候点击确定即可。KUPA智能安装服务向您保证，只是通过您的授权完成应用程序的智能安装，不会有损您的任何其它权益，因此，为了更好的提升您在使用本产品过程中的体验，KUPA建议您开启智能安装服务。</string>
 
 </resources>

@@ -45,10 +45,10 @@
 
     <FrameLayout
         android:id="@+id/update_info_layout"
-        android:layout_width="@dimen/w_537"
-        android:layout_height="@dimen/h_160"
+        android:layout_width="@dimen/w_590"
+        android:layout_height="@dimen/h_163"
         android:layout_marginLeft="@dimen/w_960"
-        android:layout_marginTop="@dimen/h_441"
+        android:layout_marginTop="@dimen/h_440"
         android:visibility="gone">
 
         <TextView
@@ -70,27 +70,30 @@
 
         <TextView
             android:id="@+id/update_describe"
-            android:layout_width="@dimen/w_670"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="@dimen/h_36"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/update_watch_all"
-            android:layout_width="@dimen/w_200"
-            android:layout_height="@dimen/h_48"
-            android:layout_gravity="bottom"
-            android:background="@drawable/watch_all_selector"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="新版详情"
-            android:textColor="@color/white" />
+            android:textSize="@dimen/h_36" />
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/update_watch_all"
+        android:layout_width="@dimen/w_112"
+        android:layout_height="@dimen/h_40"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/w_250"
+        android:layout_marginTop="@dimen/h_560"
+        android:background="@drawable/watch_all_selector"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="查看全部"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h_20"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/update_no_version"
@@ -104,7 +107,7 @@
 
     <TextView
         android:id="@+id/update_btn"
-        android:layout_width="@dimen/w_388"
+        android:layout_width="@dimen/w_320"
         android:layout_height="@dimen/h_80"
         android:layout_marginLeft="@dimen/w_960"
         android:layout_marginTop="@dimen/h_670"
@@ -117,7 +120,7 @@
 
     <FrameLayout
         android:id="@+id/update_progress_layout"
-        android:layout_width="@dimen/w_398"
+        android:layout_width="@dimen/w_330"
         android:layout_height="@dimen/h_88"
         android:layout_marginLeft="@dimen/w_955"
         android:layout_marginTop="@dimen/h_666"
@@ -125,12 +128,12 @@
 
         <com.kupaworld.androidtv.view.DynamicWave
             android:id="@+id/update_wave"
-            android:layout_width="@dimen/w_388"
+            android:layout_width="@dimen/w_320"
             android:layout_height="@dimen/h_80"
             android:layout_gravity="center" />
 
         <View
-            android:layout_width="@dimen/w_398"
+            android:layout_width="@dimen/w_330"
             android:layout_height="@dimen/h_88"
             android:background="@drawable/cover_wave_progress" />
 
@@ -143,4 +146,17 @@
             android:textColor="@color/white"
             android:textSize="@dimen/h_36" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/local_update_btn"
+        android:layout_width="@dimen/w_320"
+        android:layout_height="@dimen/h_80"
+        android:layout_marginLeft="@dimen/w_1350"
+        android:layout_marginTop="@dimen/h_670"
+        android:background="@drawable/btn_update_selector"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="本地升级"
+        android:textColor="@color/white"
+        android:textSize="@dimen/h_36" />
 </FrameLayout>

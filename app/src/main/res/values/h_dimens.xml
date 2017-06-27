@@ -3,7 +3,6 @@
     <dimen name="h_7">7.0px</dimen>
 <dimen name="h_8">8.0px</dimen>
 <dimen name="h_9">9.0px</dimen>
-    <dimen name="h_30">30.0px</dimen>
     <dimen name="h_35">35.0px</dimen>
     <dimen name="h_40">40.0px</dimen>
     <dimen name="h_45">45.0px</dimen>
@@ -26,7 +25,6 @@
     <dimen name="h_394">394.0px</dimen>
     <dimen name="h_409">409.0px</dimen>
     <dimen name="h_462">462.0px</dimen>
-    <dimen name="h_530">530.0px</dimen>
     <dimen name="h_540">540.0px</dimen>
     <dimen name="h_563">563.0px</dimen>
     <dimen name="h_630">630.0px</dimen>

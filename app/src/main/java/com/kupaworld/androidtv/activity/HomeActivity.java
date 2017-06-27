@@ -19,6 +19,9 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.application.SysApplication;
 import com.kupaworld.androidtv.db.DBUtils;
@@ -28,6 +31,7 @@ import com.kupaworld.androidtv.download.DownloadService;
 import com.kupaworld.androidtv.entity.App;
 import com.kupaworld.androidtv.entity.BgImage;
 import com.kupaworld.androidtv.entity.SystemInfo;
+import com.kupaworld.androidtv.util.BaiDuMapUtils;
 import com.kupaworld.androidtv.util.BgImageUtil;
 import com.kupaworld.androidtv.util.Contacts;
 import com.kupaworld.androidtv.util.JsonUtils;
@@ -82,10 +86,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private TextView mMovieLife, mMusicArea, mGameCenter, mTvNews, mTvIe, mTvStore, mTvMovieTip, mTvMusicTip, mTvGameTip;
     private View coverMovie, coverMusic, coverGame, coverNews, coverIe, coverStore;
 
-    private int[] resMovies = {R.mipmap.kupatv_mainpage_movie_one, R.mipmap.kupatv_mainpage_movie_two, R.mipmap.kupatv_mainpage_movie_three};
-    private int[] resMusics = {R.mipmap.kupatv_mainpage_music_one, R.mipmap.kupatv_mainpage_music_two, R.mipmap.kupatv_mainpage_music_three};
-    private int[] resGames = {R.mipmap.game_two, R.mipmap.kupatv_mainpage_game_two, R.mipmap.game_three};
-
     private List<String> movieUrl = new ArrayList<>();
     private List<String> musicUrl = new ArrayList<>();
     private List<String> gameUrl = new ArrayList<>();
@@ -126,6 +126,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private DbUtils dbUtils;
 
+    private LocationClient mLocationClient = null;
+    private BDLocationListener myListener = new MyLocationListener();
+    private String address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +142,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         downloadManager.getDownloadInfoList().clear();
         dbUtils = SysApplication.dbUtils;
         saveDefaultInfo();
-        checkSystemUpdate();
         deleteUpdate();
+        startLocation();
     }
 
     /**
@@ -157,12 +161,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      * 检测系统升级
      */
     private void checkSystemUpdate() {
-        String mac = Utils.getMac();
+        String mac = Utils.getLocalMacAddress(HomeActivity.this);
         if (!TextUtils.isEmpty(mac)) {
             int version = Utils.getVersionCode(this);
             HttpUtils http = new HttpUtils(10 * 1000);
             RequestParams params = new RequestParams();
             params.addBodyParameter("mac", mac);
+            params.addBodyParameter("detailAddress", address);
             params.addBodyParameter("version", String.valueOf(version));
             http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
@@ -391,7 +396,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         currentModule = 0;
-//        handler.sendEmptyMessage(1);
         checkAppInfoUpdate();
         Utils.killAll(this);
         REQUEST_TIMES = 0;
@@ -1018,6 +1022,45 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
+    }
+
+    /**
+     * 启动定位
+     */
+    private void startLocation() {
+        mLocationClient = new LocationClient(this);
+        mLocationClient.registerLocationListener(myListener);
+        mLocationClient.setLocOption(BaiDuMapUtils.getOption());
+        mLocationClient.start();
+    }
+
+    /**
+     * 百度地图定位监听
+     */
+    private class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            boolean localSuccess = BaiDuMapUtils.isLocatSuccess(location);
+            if (localSuccess) {
+                Utils.log("定位成功");
+                address = location.getAddrStr();
+                if (!TextUtils.isEmpty(address)) {
+                    checkSystemUpdate();
+                    mLocationClient.stop();
+                    BaiDuMapUtils.saveAddress(HomeActivity.this, address);
+                    Utils.log("定位的地址：" + address);
+                }
+            } else {
+                Utils.log("定位失败");
+            }
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
+        }
+
     }
 
     private void getViews() {

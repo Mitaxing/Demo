@@ -28,7 +28,7 @@ public class DynamicWave extends View {
     private float mCycleFactorW;
 
     private static final int PROGRESS_MIN = -50;
-    private static final int PROGRESS_MAX = 206;
+    private static final int PROGRESS_MAX = 160;
     private static int PROGRESS_DUR = PROGRESS_MAX - PROGRESS_MIN;
     private static int PROGRESS = PROGRESS_MIN;
 
@@ -62,7 +62,7 @@ public class DynamicWave extends View {
     }
 
     public void setProgress(int progress) {
-        PROGRESS = (int) (2.56 * progress + PROGRESS_MIN);
+        PROGRESS = (int) (2.1 * progress + PROGRESS_MIN);
     }
 
     @Override
