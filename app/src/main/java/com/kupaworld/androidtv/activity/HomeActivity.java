@@ -91,7 +91,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private List<String> gameUrl = new ArrayList<>();
 
     private boolean showOverMovie, showOverMusic, showOverGame, showMovieTip, showMusicTip, showGameTip;
-    private int currentRes, currentModule, currentMovie, currentMusic, currentGame;
+    private int currentModule, currentMovie, currentMusic, currentGame;
     private String currentUrl;
     private int REQUEST_TIMES;
     private int focusViewId;
@@ -99,7 +99,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private DisplayImageOptions options;
     private final String ALPHA = "alpha";
-    private String imageUri = "drawable://"; // from drawables (only images, non-9patch)
     private ImageLoader imageLoader;
     private static boolean isChange;
     private ValueAnimator valueAnimator;
@@ -485,7 +484,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     showOverMovie = true;
                 }
                 currentMovie++;
-//                currentRes = resMovies[currentMovie % resMovies.length];
                 currentUrl = movieUrl.get(currentMovie % movieUrl.size());
                 currentModule = 1;
                 break;
@@ -501,7 +499,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     showOverMusic = true;
                 }
                 currentMusic++;
-//                currentRes = resMusics[currentMusic % resMusics.length];
                 currentUrl = musicUrl.get(currentMusic % musicUrl.size());
                 currentModule = 2;
                 break;
@@ -517,7 +514,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     showOverGame = true;
                 }
                 currentGame++;
-//                currentRes = resGames[currentGame % resGames.length];
                 currentUrl = gameUrl.get(currentGame % gameUrl.size());
                 currentModule = 0;
                 break;

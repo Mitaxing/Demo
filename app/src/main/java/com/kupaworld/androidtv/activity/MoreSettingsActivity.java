@@ -20,7 +20,7 @@ public class MoreSettingsActivity extends BaseActivity implements AdapterView.On
     private ListView mLvList;
     private Intent intent;
     private MoreSettingsListAdapter adapter;
-    private String[] settigns = {"日期和时间", "语言和输入法", "存储", "安全", "恢复出厂设置", "开发者选项"};
+    private String[] settings = {"日期和时间", "语言和输入法", "存储", "安全", "恢复出厂设置", "开发者选项"};
     private String[] intents = {Settings.ACTION_DATE_SETTINGS,
             Settings.ACTION_INPUT_METHOD_SETTINGS,
             Settings.ACTION_MEMORY_CARD_SETTINGS,
@@ -38,7 +38,7 @@ public class MoreSettingsActivity extends BaseActivity implements AdapterView.On
     }
 
     private void initListView() {
-        adapter = new MoreSettingsListAdapter(this, settigns);
+        adapter = new MoreSettingsListAdapter(this, settings);
         mLvList.setAdapter(adapter);
         mLvList.setOnItemClickListener(this);
     }

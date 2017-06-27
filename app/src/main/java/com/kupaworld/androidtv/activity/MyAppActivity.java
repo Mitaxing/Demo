@@ -39,7 +39,7 @@ import java.util.List;
  * MyApp
  */
 public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLongClickListener, OnItemSelectedListener, OnItemClickListener {
-    private final static String TAG = "MyAppActivity";
+
     private List<AppInfo> mlistAppInfo = new ArrayList<>();
     private MainUpView mainUpView1;
     private View mOldView;

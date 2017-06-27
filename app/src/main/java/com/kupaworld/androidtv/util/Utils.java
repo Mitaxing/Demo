@@ -20,16 +20,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
 import java.lang.reflect.Method;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.text.SimpleDateFormat;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -225,76 +217,6 @@ public class Utils {
          */
     private static String formatFileSize(Context context, long number) {
         return Formatter.formatFileSize(context, number);
-    }
-
-    /**
-     * 获取当前系统连接网络的网卡的mac地址
-     * @return
-     */
-    public static String getCurrentMac() {
-        byte[] mac = null;
-        StringBuffer sb = new StringBuffer();
-        try {
-            Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (netInterfaces.hasMoreElements()) {
-                NetworkInterface ni = netInterfaces.nextElement();
-                Enumeration<InetAddress> address = ni.getInetAddresses();
-                while (address.hasMoreElements()) {
-                    InetAddress ip = address.nextElement();
-                    if (ip.isAnyLocalAddress() || !(ip instanceof Inet4Address) || ip.isLoopbackAddress())
-                        continue;
-                    if (ip.isSiteLocalAddress())
-                        mac = ni.getHardwareAddress();
-                    else if (!ip.isLinkLocalAddress()) {
-                        mac = ni.getHardwareAddress();
-                        break;
-                    }
-                }
-            }
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
-        if(mac != null){
-            for(int i=0 ;i<mac.length ;i++){
-                sb.append(parseByte(mac[i]));
-            }
-            return sb.substring(0, sb.length()-1);
-        }
-        return null;
-    }
-
-    private static String parseByte(byte b) {
-        String s = "00" + Integer.toHexString(b)+":";
-        return s.substring(s.length() - 3);
-    }
-
-    /**
-     * 获取设备Mac地址
-     *
-     * @return
-     */
-    public static String getMac() {
-        String macSerial = null;
-        String str = "";
-
-        try {
-            Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address ");
-            InputStreamReader ir = new InputStreamReader(pp.getInputStream());
-            LineNumberReader input = new LineNumberReader(ir);
-
-            for (; null != str; ) {
-                str = input.readLine();
-                if (str != null) {
-                    macSerial = str.trim();// 去空格
-                    break;
-                }
-            }
-        } catch (IOException ex) {
-            // 赋予默认值
-            ex.printStackTrace();
-        }
-        return macSerial;
     }
 
     // 获取本机的物理地址
