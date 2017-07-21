@@ -16,14 +16,14 @@ import com.kupaworld.androidtv.R;
 public class MoreSettingsListAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] settings;
+    private String[] settigns;
     private LayoutInflater inflater;
     private TextView mTvName;
     private int len;
 
     public MoreSettingsListAdapter(Context context, String[] settings) {
         this.context = context;
-        this.settings = settings;
+        this.settigns = settings;
         this.len = settings.length;
         this.inflater = LayoutInflater.from(context);
     }
@@ -49,7 +49,7 @@ public class MoreSettingsListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_more_settings, null);
         }
         mTvName = (TextView) convertView.findViewById(R.id.more_settings_item_name);
-        mTvName.setText(settings[position]);
+        mTvName.setText(settigns[position]);
         //设置ListView Item点击后的效果，使用Selector
         if (position == 0)
             convertView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.listview_focus_top_bg));

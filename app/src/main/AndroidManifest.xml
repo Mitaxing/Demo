@@ -72,7 +72,9 @@
         </activity>
         <activity android:name=".activity.MyAppActivity" />
         <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.WenjianActivity" />
         <activity android:name=".activity.MoreSettingsActivity" />
+        <activity android:name=".activity.AdjustShowActivity" />
         <activity android:name=".activity.CheckUpdateActivity" />
         <activity android:name=".activity.NetworkActivity" />
         <activity android:name=".activity.UpdateInfoActivity" android:theme="@style/myTransparent"/>

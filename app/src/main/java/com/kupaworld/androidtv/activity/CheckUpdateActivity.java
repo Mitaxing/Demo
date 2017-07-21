@@ -1,6 +1,7 @@
 package com.kupaworld.androidtv.activity;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,6 +75,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
      */
     private void checkSystemUpdate() {
         String mac = Utils.getLocalMacAddress(this);
+//        Utils.toast(this, "mac : " + mac);
         if (!TextUtils.isEmpty(mac)) {
             int version = Utils.getVersionCode(this);
             HttpUtils http = new HttpUtils(10 * 1000);
@@ -84,6 +86,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
+                    Utils.log("系统更新：" + responseInfo.result);
                     systemInfo = JsonUtils.resolveResult(CheckUpdateActivity.this, responseInfo.result);
                     if (null != systemInfo) {
                         resolveResult();
@@ -92,6 +95,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
 
                 @Override
                 public void onFailure(HttpException e, String s) {
+                    Utils.log("查询失败：" + s);
                 }
             });
         }
@@ -168,6 +172,8 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                 isDownload = true;
                 mFlProgress.setVisibility(View.VISIBLE);
                 mTvUpdate.setFocusable(false);
+//                mTvWatchAll.requestFocus();
+//                mTvUpdate.setBackgroundResource(R.drawable.btn_update_normal);
                 if (!isClick)
                     handler.sendEmptyMessageDelayed(STARTED, 500);
                 break;
@@ -189,6 +195,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                 mTvUpdate.setText("立即升级");
                 mTvUpdate.setFocusable(true);
                 mTvUpdate.requestFocus();
+//                mTvUpdate.setBackgroundResource(R.drawable.btn_update_selector);
                 isDownload = false;
                 break;
         }
@@ -306,7 +313,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         if (packageName == null || "".equals(packageName))
             return false;
         try {
-            getPackageManager().getApplicationInfo(
+            ApplicationInfo info = getPackageManager().getApplicationInfo(
                     packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
@@ -320,6 +327,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             Intent intent = new Intent("softwinner.intent.action.RECOVREY");
             startActivity(intent);
         } else {
+            //显示Toast
             Utils.toast(this, "暂不支持本地升级");
         }
     }

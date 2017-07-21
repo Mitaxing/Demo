@@ -271,6 +271,7 @@ public class BaseActivity extends Activity {
                     0);
             switch (event) {
                 case Contacts.ETHERNET_STATE_DISABLED:
+//                    changeWifiIcon(obtainWifiInfo());
                     break;
 
                 case Contacts.ETHERNET_STATE_ENABLED:
