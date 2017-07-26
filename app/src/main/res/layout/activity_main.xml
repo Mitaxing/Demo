@@ -23,9 +23,9 @@
             android:layout_width="@dimen/w_881"
             android:layout_height="@dimen/h_462"
             android:layout_marginLeft="@dimen/w_55"
-            android:background="@mipmap/bg_movie"
             android:clickable="true"
             android:focusable="true"
+            android:background="@mipmap/bg_movie"
             android:focusableInTouchMode="true"
             app:isShape="true"
             app:radius="@dimen/w_10">
@@ -41,8 +41,8 @@
                 android:id="@+id/tip_movie_over"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:scaleType="fitXY" />
 
             <View
                 android:id="@+id/cover_movie"
@@ -117,10 +117,9 @@
             android:layout_width="@dimen/w_409"
             android:layout_height="@dimen/h_462"
             android:layout_marginLeft="@dimen/w_986"
-            android:layout_marginTop="@dimen/h_8"
-            android:background="@mipmap/bg_music"
             android:clickable="true"
             android:focusable="true"
+            android:background="@mipmap/bg_music"
             android:focusableInTouchMode="true"
             app:isShape="true"
             app:radius="@dimen/w_10">
@@ -192,27 +191,25 @@
             android:id="@+id/main_game"
             android:layout_width="@dimen/h_409"
             android:layout_height="@dimen/h_462"
-
             android:layout_marginLeft="@dimen/w_1450"
-            android:layout_marginTop="@dimen/h_8"
-            android:background="@mipmap/bg_game"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:background="@mipmap/bg_game"
             app:isShape="true"
             app:radius="@dimen/w_10">
 
             <ImageView
                 android:id="@+id/tip_game_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
+                android:layout_width="@dimen/h_409"
+                android:layout_height="@dimen/h_462"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/tip_game_over"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="center"
+                android:layout_width="@dimen/h_409"
+                android:layout_height="@dimen/h_462"
+                android:scaleType="centerCrop"
                 android:visibility="gone" />
 
             <View
@@ -495,7 +492,23 @@
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
+            <View
+                android:id="@+id/cover_file"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_80"
+                android:visibility="gone" />
+
+            <com.kupaworld.androidtv.view.FreshDownloadView
+                android:id="@+id/fdv_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:visibility="gone" />
+
             <TextView
+                android:id="@+id/tv_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"

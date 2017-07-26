@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.kupaworld.androidtv.download.AuthImageDownloader;
 import com.kupaworld.androidtv.util.Contacts;
 import com.lidroid.xutils.DbUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -57,7 +58,7 @@ public class SysApplication extends Application {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 // 由原先的discCache -> diskCache
                 .diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径
-                .imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
+                .imageDownloader(new AuthImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
                 .writeDebugLogs() // Remove for release app
                 .build();
         //全局初始化此配置

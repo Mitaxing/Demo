@@ -31,7 +31,7 @@
     <!--红橙色 -->
     <!--深粉红色 -->
     <!--紫红色 -->
-    <color name="red">#FF0000</color><!--红色 -->
+    <!--红色 -->
     <!--老花色 -->
     <!--亮金黄色 -->
     <!--亚麻色 -->
@@ -142,6 +142,6 @@
     <color name="black">#000000</color><!--黑色 -->
     <!--草绿色 -->
     <color name="gray_cc">#80d9d8d8</color><!--灰色cc -->
-    <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
+    <!--灰色8f -->
 
 </resources>

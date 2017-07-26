@@ -2,13 +2,10 @@
 <resources>
     <dimen name="w_9">9.0px</dimen>
 <dimen name="w_10">10.0px</dimen>
-<dimen name="w_11">11.0px</dimen>
     <dimen name="w_45">45.0px</dimen>
     <dimen name="w_55">55.0px</dimen>
     <dimen name="w_60">60.0px</dimen>
     <dimen name="w_75">75.0px</dimen>
-    <dimen name="w_96">96.0px</dimen>
-    <dimen name="w_100">100.0px</dimen>
     <dimen name="w_130">130.0px</dimen>
     <dimen name="w_144">144.0px</dimen>
     <dimen name="w_190">190.0px</dimen>
@@ -18,29 +15,17 @@
     <dimen name="w_278">278.0px</dimen>
     <dimen name="w_297">297.0px</dimen>
     <dimen name="w_364">364.0px</dimen>
-    <dimen name="w_404">404.0px</dimen>
     <dimen name="w_409">409.0px</dimen>
-    <dimen name="w_412">412.0px</dimen>
     <dimen name="w_450">450.0px</dimen>
-    <dimen name="w_532">532.0px</dimen>
-    <dimen name="w_670">670.0px</dimen>
     <dimen name="w_673">673.0px</dimen>
     <dimen name="w_741">741.0px</dimen>
-    <dimen name="w_840">840.0px</dimen>
     <dimen name="w_881">881.0px</dimen>
-    <dimen name="w_968">968.0px</dimen>
     <dimen name="w_982">982.0px</dimen>
     <dimen name="w_986">986.0px</dimen>
     <dimen name="w_1204">1204.0px</dimen>
     <dimen name="w_1291">1291.0px</dimen>
-    <dimen name="w_1412">1412.0px</dimen>
     <dimen name="w_1450">1450.0px</dimen>
-    <dimen name="w_1572">1572.0px</dimen>
     <dimen name="w_1600">1600.0px</dimen>
-    <dimen name="w_1632">1632.0px</dimen>
     <dimen name="w_1687">1687.0px</dimen>
-    <dimen name="w_1689">1689.0px</dimen>
     <dimen name="w_1750">1750.0px</dimen>
-    <dimen name="w_1856">1856.0px</dimen>
-    <dimen name="w_2736">2736px</dimen>
 </resources>

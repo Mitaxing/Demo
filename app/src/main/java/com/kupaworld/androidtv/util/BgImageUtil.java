@@ -51,6 +51,7 @@ public class BgImageUtil {
      * @param result
      */
     public static void resolveImg(String result) {
+        Utils.log("背景图：" + result);
         List<BgImage> list = new ArrayList<>();
         JSONTokener parse = new JSONTokener(result);
         try {
@@ -75,7 +76,7 @@ public class BgImageUtil {
      *
      * @param list
      */
-    private static void saveImages(List<BgImage> list) {
+    public static void saveImages(List<BgImage> list) {
         try {
             dbUtils.deleteAll(BgImage.class);
             dbUtils.saveAll(list);
@@ -86,9 +87,10 @@ public class BgImageUtil {
 
     /**
      * 查询所以图片信息
+     *
      * @return
      */
-    public static List<BgImage> queryImageInfo(){
+    public static List<BgImage> queryImageInfo() {
         try {
             return dbUtils.findAll(BgImage.class);
         } catch (DbException e) {

@@ -48,7 +48,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
     private AppsAdapter mAdapter;
     private boolean isCover, isFirst;
 
-    private int mSavePos = -1, mAppListSize;
+    private int mSavePos = 0, mAppListSize;
     private Bitmap bm;
 
     private int[] appIcons = {R.mipmap.icon_yingshikuaisou, R.mipmap.icon_wps, R.mipmap.icon_lebo, R.mipmap.icon_qipo, R.mipmap.icon_music,
@@ -66,6 +66,12 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
         registerInstalledReceiver();
         initUpView();
         initFalseApps();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.sendEmptyMessageDelayed(1, 100);
     }
 
     private void initFalseApps() {
@@ -167,7 +173,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
             switch (msg.what) {
                 case 1:
                     //延时请求选择的位置
-                    gridView.setDefualtSelect(0);
+                    gridView.setDefualtSelect(mSavePos);
                     break;
 
                 case 2:
@@ -245,6 +251,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        mSavePos = position;
         try {
             PackageManager packageManager = getPackageManager();
             Intent intent = packageManager.getLaunchIntentForPackage(mlistAppInfo.get(position).getPackageName());

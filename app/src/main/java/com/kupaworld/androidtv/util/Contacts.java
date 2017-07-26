@@ -8,6 +8,51 @@ import android.os.Environment;
 
 public class Contacts {
 
+    //root path
+    public static final String BASE_URI = "https://www.kupaus.com/";
+
+    private static final String URI_REQUEST = BASE_URI + "a0e011bf980afc83ad884218c1e86ff7/";
+
+    /**
+     * 获取产品信息
+     *
+     * mac 机器mac地址
+     */
+    public static String URI_PRODUCT = URI_REQUEST + "/product/info";
+
+    /**
+     * 获取系统信息
+     *
+     * mac 机器mac地址
+     */
+    public static String URI_SYSTEM = URI_REQUEST + "/system/info";
+
+    /**
+     * 查看是否有新版本
+     *
+     * mac        机器mac地址
+     * version    当前版本
+     */
+    public static String URI_SYSTEM_UPDATE = URI_REQUEST + "/system/queryNew";
+
+    /**
+     * 更新结果记录更新
+     *
+     * mac           机器mac地址
+     * oldVersion    老版本
+     * newVersion    新版本
+     * result        更新结果【0 失败；1 成功】
+     */
+    public static final String URI_UPDATE_RESULT = URI_REQUEST + "/system/updateResult";
+
+    /**
+     * 更新定位
+     *
+     * mac        机器mac地址
+     * localtion  定位位置
+     */
+    public static final String URI_LOCATION = URI_REQUEST + "/system/updateLocation";
+
     public static String KUPA_DOMAIN_NAME = "http://www.kupaworld.cn:1226";
 
     public static String GET_TYPE_CHILD_URL = KUPA_DOMAIN_NAME + "/Tv/GetTypeChildServlet";
@@ -27,6 +72,7 @@ public class Contacts {
     public static final String TYPE_NEWS = "news";
     public static final String TYPE_BROWSER = "browser";
     public static final String TYPE_MARKET = "appmarket";
+    public static final String TYPE_DOCUMENT = "document";
 
     public static final String PACKAGE_MOVIE = "com.tv.kuaisou";
     public static final String PACKAGE_MUSIC = "com.tencent.qqmusictv";

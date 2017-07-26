@@ -18,13 +18,11 @@ public class SystemInfo {
     public SystemInfo() {
     }
 
-    public SystemInfo(Integer versionId, String versionNumber, String versionName, String versionInformation, String versionDownloadUrl, Integer versionClassId, long updateTime) {
+    public SystemInfo(Integer versionId, String versionName, String versionInformation, String versionDownloadUrl, long updateTime) {
         this.versionId = versionId;
-        this.versionNumber = versionNumber;
         this.versionName = versionName;
         this.versionInformation = versionInformation;
         this.versionDownloadUrl = versionDownloadUrl;
-        this.versionClassId = versionClassId;
         this.updateTime = updateTime;
     }
 

@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="h_7">7.0px</dimen>
-<dimen name="h_8">8.0px</dimen>
+    <dimen name="h_8">8.0px</dimen>
 <dimen name="h_9">9.0px</dimen>
     <dimen name="h_35">35.0px</dimen>
     <dimen name="h_40">40.0px</dimen>
     <dimen name="h_45">45.0px</dimen>
     <dimen name="h_50">50.0px</dimen>
     <dimen name="h_70">70.0px</dimen>
-    <dimen name="h_72">72.0px</dimen>
-    <dimen name="h_78">78.0px</dimen>
     <dimen name="h_100">100.0px</dimen>
     <dimen name="h_130">130.0px</dimen>
     <dimen name="h_142">142.0px</dimen>
     <dimen name="h_144">144.0px</dimen>
-    <dimen name="h_204">204.0px</dimen>
     <dimen name="h_226">226.0px</dimen>
     <dimen name="h_233">233.0px</dimen>
     <dimen name="h_235">235.0px</dimen>
     <dimen name="h_237">237.0px</dimen>
-    <dimen name="h_246">246.0px</dimen>
     <dimen name="h_310">310.0px</dimen>
     <dimen name="h_328">328.0px</dimen>
-    <dimen name="h_394">394.0px</dimen>
     <dimen name="h_409">409.0px</dimen>
     <dimen name="h_462">462.0px</dimen>
     <dimen name="h_540">540.0px</dimen>
     <dimen name="h_563">563.0px</dimen>
-    <dimen name="h_630">630.0px</dimen>
-    <dimen name="h_672">672.0px</dimen>
     <dimen name="h_847">847.0px</dimen>
-    <dimen name="h_2300">2300px</dimen>
 </resources>

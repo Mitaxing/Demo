@@ -5,12 +5,44 @@ import android.content.SharedPreferences;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClientOption;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 
 /**
  * Created by admin on 2017/5/27.
  */
 
 public class BaiDuMapUtils {
+
+    /**
+     * 更新位置信息
+     *
+     * @param context
+     * @param location
+     */
+    private static void updateLocation(Context context, String location) {
+        HttpUtils httpUtils = new HttpUtils(10 * 1000);
+//        String url = Contacts.URI_LOCATION + "?mac=" + Utils.getLocalMacAddress(context) + "&&localtion=" + location;
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("mac", Utils.getLocalMacAddress(context));
+        params.addBodyParameter("localtion", location);
+        httpUtils.send(HttpRequest.HttpMethod.POST, Contacts.URI_LOCATION, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                if (responseInfo.result.contains("ok"))
+                    Utils.log("地址更新成功");
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Utils.log("地址更新失败：" + s);
+            }
+        });
+    }
 
     public static boolean isLocatSuccess(BDLocation location) {
         if (location.getLocType() == BDLocation.TypeGpsLocation) {
@@ -70,9 +102,16 @@ public class BaiDuMapUtils {
      * @param address
      */
     public static void saveAddress(Context context, String address) {
-        SharedPreferences sp = context.getSharedPreferences("kupaTV", 0);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("address", address).apply();
+        String oldAddress = getAddress(context);
+        if (!oldAddress.equals(address)) {
+            SharedPreferences sp = context.getSharedPreferences("kupaTV", 0);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("address", address).apply();
+
+            updateLocation(context, address);
+        } else {
+            Utils.log("地理位置不变");
+        }
     }
 
     /**
@@ -85,4 +124,5 @@ public class BaiDuMapUtils {
         SharedPreferences sp = context.getSharedPreferences("kupaTV", 0);
         return sp.getString("address", "暂无位置信息");
     }
+
 }
