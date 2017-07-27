@@ -57,7 +57,7 @@ public class SysApplication extends Application {
                 .diskCacheSize(50 * 1024 * 1024)  // 50 Mb sd卡(本地)缓存的最大值
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 // 由原先的discCache -> diskCache
-                .diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径
+//                .diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径
                 .imageDownloader(new AuthImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
                 .writeDebugLogs() // Remove for release app
                 .build();

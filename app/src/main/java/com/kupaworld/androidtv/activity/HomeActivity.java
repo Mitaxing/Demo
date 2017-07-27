@@ -204,9 +204,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 Utils.log("apk信息：" + responseInfo.result);
-                JsonUtils.resolveProductResult(responseInfo.result);
-                initImageUrl();
-                handler.sendEmptyMessage(1);
+                if (JsonUtils.resolveProductResult(responseInfo.result))
+                    initImageUrl();
             }
 
             @Override

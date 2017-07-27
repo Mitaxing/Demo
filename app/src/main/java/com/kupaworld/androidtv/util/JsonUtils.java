@@ -1,5 +1,7 @@
 package com.kupaworld.androidtv.util;
 
+import android.text.TextUtils;
+
 import com.kupaworld.androidtv.entity.App;
 import com.kupaworld.androidtv.entity.BgImage;
 import com.kupaworld.androidtv.entity.SystemInfo;
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,28 +45,34 @@ public class JsonUtils {
         return info;
     }
 
-    public static void resolveProductResult(String result) {
+    public static boolean resolveProductResult(String result) {
+        boolean hasImg = false;
         try {
             JSONTokener parse = new JSONTokener(result);
             JSONObject object = (JSONObject) parse.nextValue();
             String res = object.optString("res", "error");
             if (res.equals("ok")) {
                 JSONObject info = object.optJSONObject("info");
-                //apk信息
-                JSONObject apkObj = info.optJSONObject("mKupaTvProductSystemApk");
-                apkList.clear();
-                resolveApkInfo(apkObj);
-                AppUtils.saveApps(apkList);
+                if (info != null) {
 
-                //背景图信息
-                JSONObject bgObj = info.optJSONObject("mKupaTvProductSystemBackground");
-                imgList.clear();
-                resolveImgInfo(bgObj);
-                BgImageUtil.saveImages(imgList);
+                    //apk信息
+                    JSONObject apkObj = info.optJSONObject("mKupaTvProductSystemApk");
+                    apkList.clear();
+                    resolveApkInfo(apkObj);
+                    AppUtils.saveApps(apkList);
+
+                    //背景图信息
+                    JSONObject bgObj = info.optJSONObject("mKupaTvProductSystemBackground");
+                    imgList.clear();
+                    hasImg = resolveImgInfo(bgObj);
+                    BgImageUtil.saveImages(imgList);
+                }
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return hasImg;
     }
 
     private static void resolveApkInfo(JSONObject object) {
@@ -138,9 +147,13 @@ public class JsonUtils {
         apkList.add(app);
     }
 
-    private static void resolveImgInfo(JSONObject object) {
+    private static boolean resolveImgInfo(JSONObject object) {
+        boolean hasImg = false;
         JSONObject imgObj = object.optJSONObject("mKupaTvProductSystemBackgroundFilm");
         int id = imgObj.optInt("ktpsbfNum");
+        String url = imgObj.optString("ktpsbfUrlFirst");
+        if (!TextUtils.isEmpty(url))
+            hasImg = true;
         BgImage image = new BgImage(
                 id, Contacts.TYPE_MOVIE, imgObj.optString("ktpsbfUrlFirst")
         );
@@ -188,6 +201,6 @@ public class JsonUtils {
                 id, Contacts.TYPE_GAME, imgObj.optString("ktpsbgUrlThird")
         );
         imgList.add(image);
-
+        return hasImg;
     }
 }
