@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.kupaworld.androidtv.R;
 
 /**
- * Created by Mita on 2016/11/18 16:36
+ * Created by HM on 2016/11/18 16:36
  */
 
 public class TipDialog extends Dialog {

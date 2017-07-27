@@ -105,9 +105,11 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         mainUpView1 = (MainUpView) findViewById(R.id.setting_mainUpView);
         mOpenEffectBridge = (OpenEffectBridge) mainUpView1.getEffectBridge();
         mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
+//        mainUpView1.setShadowResource(R.drawable.shadow_bg); // 设置移动边框的阴影.
         mainUpView1.setDrawUpRectPadding(new RectF(-15, -15, -15, -15)); //
 //         设置移动边框的距离.
         mainUpView1.setDrawShadowPadding(-2); // 阴影图片设置距离.
+//        mOpenEffectBridge.setTranDurAnimTime(500); // 动画时间.
 
         FrameMainLayout main_lay12 = (FrameMainLayout) findViewById(R.id.setting_lay);
         main_lay12.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
@@ -154,13 +156,22 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.settings_network:
                 intent = new Intent(this, NetworkActivity.class);
+//                intent = new Intent();
+//                ComponentName componentName = new ComponentName("com.android.setting", "com.android.settings.NetworkActivity");//这个没问题
+//                intent.setComponent(componentName);
                 break;
 
             case R.id.settings_show:
+//                intent = new Intent();
+//                ComponentName cm = new ComponentName("com.android.settings",
+//                        "com.android.settings.DisplaySettingsActivity");
+//                intent.setComponent(cm);
                 intent = new Intent();
                 ComponentName cm = new ComponentName("com.amlogic.projector",
                         "com.amlogic.projector.ShowActivity");
                 intent.setComponent(cm);
+//                Utils.openOtherApp(this,"com.amlogic.projector");
+//                hasIntent = false;
                 break;
 
             case R.id.settings_update:
@@ -175,8 +186,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 intent = new Intent(Settings.ACTION_DEVICE_INFO_SETTINGS);
                 break;
         }
-        startActivity(intent);
-        overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+//        if (hasIntent){
+            startActivity(intent);
+            overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+//        }
     }
 
     private boolean isEthernetOn() {

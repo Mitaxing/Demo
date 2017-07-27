@@ -67,6 +67,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                         "com.android.settings.WifiSettingsActivity");
                 intent.setComponent(cm);
                 startActivity(intent);
+//                startSettings(Settings.ACTION_WIFI_SETTINGS);
                 break;
 
             case R.id.network_blue:
@@ -74,11 +75,11 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.network_line:
-                Intent ethIntent = new Intent();
-                ComponentName componentName = new ComponentName("com.android.settings",
+                Intent ethintent = new Intent();
+                ComponentName ethcm = new ComponentName("com.android.settings",
                         "com.android.settings.EthernetSettingsActivity");
-                ethIntent.setComponent(componentName);
-                startActivity(ethIntent);
+                ethintent.setComponent(ethcm);
+                startActivity(ethintent);
                 break;
         }
     }

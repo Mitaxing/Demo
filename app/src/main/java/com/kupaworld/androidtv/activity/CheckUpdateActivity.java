@@ -18,7 +18,6 @@ import com.kupaworld.androidtv.entity.SystemInfo;
 import com.kupaworld.androidtv.util.BaiDuMapUtils;
 import com.kupaworld.androidtv.util.Contacts;
 import com.kupaworld.androidtv.util.JsonUtils;
-import com.kupaworld.androidtv.util.Toastor;
 import com.kupaworld.androidtv.util.UpdateUtils;
 import com.kupaworld.androidtv.util.Utils;
 import com.kupaworld.androidtv.view.DynamicWave;
@@ -59,8 +58,6 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
     private final int FAILURE = 3;
     private final int SUCCESS = 5;
 
-    private Toastor toastor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +67,6 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         downloadManager = DownloadService.getDownloadManager(getApplicationContext());
         handler.sendEmptyMessage(STARTED);
         checkSystemUpdate();
-        toastor = new Toastor(this);
     }
 
     /**
@@ -83,11 +79,12 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             HttpUtils http = new HttpUtils(10 * 1000);
             RequestParams params = new RequestParams();
             params.addBodyParameter("mac", mac);
+            params.addBodyParameter("detailAddress", BaiDuMapUtils.getAddress(this));
             params.addBodyParameter("version", String.valueOf(version));
-            http.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
+            http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
-                    systemInfo = JsonUtils.resolveResult(responseInfo.result);
+                    systemInfo = JsonUtils.resolveResult(CheckUpdateActivity.this, responseInfo.result);
                     if (null != systemInfo) {
                         resolveResult();
                     }
@@ -187,7 +184,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                 break;
 
             case FAILURE:
-                toastor.showSingletonToast("下载失败，请稍后重试");
+                Utils.toast(CheckUpdateActivity.this, "下载失败，请检查网络");
                 mFlProgress.setVisibility(View.GONE);
                 mTvUpdate.setText("立即升级");
                 mTvUpdate.setFocusable(true);
@@ -287,7 +284,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             case R.id.update_btn:
                 if (!isDownload) {
                     isClick = true;
-                    addDownload(Contacts.TYPE_LAUNCHER, Contacts.BASE_URI + url);
+                    addDownload(Contacts.TYPE_LAUNCHER, Contacts.KUPA_DOMAIN_NAME + url);
                 }
                 break;
 
@@ -305,12 +302,6 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    /**
-     * 检测是否支持本地升级
-     *
-     * @param packageName 包名
-     * @return
-     */
     private boolean checkPackage(String packageName) {
         if (packageName == null || "".equals(packageName))
             return false;
@@ -323,16 +314,13 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    /**
-     * 本地升级
-     */
     private void startLocalRecovery() {
         if (checkPackage("com.softwinner.settingsassist") && checkPackage("com.softwinner.TvdFileManager")) {
             Utils.log("apk exist!");
             Intent intent = new Intent("softwinner.intent.action.RECOVREY");
             startActivity(intent);
         } else {
-            toastor.showSingletonToast("暂不支持本地升级");
+            Utils.toast(this, "暂不支持本地升级");
         }
     }
 }
