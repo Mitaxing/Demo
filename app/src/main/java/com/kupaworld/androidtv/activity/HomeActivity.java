@@ -1,6 +1,5 @@
 package com.kupaworld.androidtv.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.IPackageManager;
@@ -23,7 +22,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.kupaworld.androidtv.R;
-import com.kupaworld.androidtv.application.SysApplication;
 import com.kupaworld.androidtv.db.DBUtils;
 import com.kupaworld.androidtv.download.DownloadInfo;
 import com.kupaworld.androidtv.download.DownloadManager;
@@ -35,13 +33,14 @@ import com.kupaworld.androidtv.util.BaiDuMapUtils;
 import com.kupaworld.androidtv.util.BgImageUtil;
 import com.kupaworld.androidtv.util.Contacts;
 import com.kupaworld.androidtv.util.JsonUtils;
+import com.kupaworld.androidtv.util.Network;
+import com.kupaworld.androidtv.util.Toastor;
 import com.kupaworld.androidtv.util.UpdateUtils;
 import com.kupaworld.androidtv.util.Utils;
 import com.kupaworld.androidtv.view.FreshDownloadView;
 import com.kupaworld.androidtv.view.TipDialog;
 import com.kupaworld.androidtvwidget.view.FrameMainLayout;
 import com.kupaworld.androidtvwidget.view.MainUpView;
-import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.exception.HttpException;
@@ -57,11 +56,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,8 +77,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ImageView currentView, currentOverView;
     private ImageView mIvMovie, mIvMusic, mIvGame, mIvOverMovie, mIvOverMusic, mIvOverGame;
 
-    private TextView mMovieLife, mMusicArea, mGameCenter, mTvNews, mTvIe, mTvStore, mTvMovieTip, mTvMusicTip, mTvGameTip;
-    private View coverMovie, coverMusic, coverGame, coverNews, coverIe, coverStore;
+    private TextView mMovieLife, mMusicArea, mGameCenter, mTvNews, mTvIe, mTvStore, mTvFile, mTvMovieTip, mTvMusicTip, mTvGameTip;
+    private View coverMovie, coverMusic, coverGame, coverNews, coverIe, coverStore, coverFile;
 
     private List<String> movieUrl = new ArrayList<>();
     private List<String> musicUrl = new ArrayList<>();
@@ -93,7 +87,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private boolean showOverMovie, showOverMusic, showOverGame, showMovieTip, showMusicTip, showGameTip;
     private int currentModule, currentMovie, currentMusic, currentGame;
     private String currentUrl;
-    private int REQUEST_TIMES;
     private int focusViewId;
     private SystemInfo systemInfo;
 
@@ -103,10 +96,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private static boolean isChange;
     private ValueAnimator valueAnimator;
 
-    private FreshDownloadView fdv_movie, fdv_music, fdv_game, fdv_news, fdv_ie, fdv_store;
+    private FreshDownloadView fdv_movie, fdv_music, fdv_game, fdv_news, fdv_ie, fdv_store, fdv_file;
     private DownloadManager downloadManager;
-
-    private String[] apps = {Contacts.TYPE_MOVIE, Contacts.TYPE_MUSIC, Contacts.TYPE_GAME, Contacts.TYPE_NEWS, Contacts.TYPE_BROWSER, Contacts.TYPE_MARKET};
 
     private final int DEFAULT = -1;
     private final int STARTED = 1;
@@ -122,8 +113,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private int IE_STATE = DEFAULT;
     private int NEWS_STATE = DEFAULT;
     private int STORE_STATE = DEFAULT;
-
-    private DbUtils dbUtils;
+    private int DOCUMENT_STATE = DEFAULT;
 
     private LocationClient mLocationClient = null;
     private BDLocationListener myListener = new MyLocationListener();
@@ -139,10 +129,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         initImageLoader();
         downloadManager = DownloadService.getDownloadManager(getApplicationContext());
         downloadManager.getDownloadInfoList().clear();
-        dbUtils = SysApplication.dbUtils;
+        //保存默认内置应用信息
         saveDefaultInfo();
+        //删除系统升级包
         deleteUpdate();
+        //开始定位
         startLocation();
+        //检测系统升级
+        checkSystemUpdate();
     }
 
     /**
@@ -160,18 +154,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      * 检测系统升级
      */
     private void checkSystemUpdate() {
-        String mac = Utils.getLocalMacAddress(HomeActivity.this);
+        String mac = Utils.getLocalMacAddress(this);
         if (!TextUtils.isEmpty(mac)) {
             int version = Utils.getVersionCode(this);
             HttpUtils http = new HttpUtils(10 * 1000);
             RequestParams params = new RequestParams();
             params.addBodyParameter("mac", mac);
-            params.addBodyParameter("detailAddress", address);
             params.addBodyParameter("version", String.valueOf(version));
-            http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
+            http.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
-                    systemInfo = JsonUtils.resolveResult(HomeActivity.this, responseInfo.result);
+                    systemInfo = JsonUtils.resolveResult(responseInfo.result);
                     if (null != systemInfo) {
                         String result = systemInfo.getResult();
                         if ("ok".equals(result)) {
@@ -188,15 +181,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void checkAppInfoUpdate() {
-        if (Utils.isNetworkAvailable(HomeActivity.this)) {
-            int len = apps.length;
-            for (int i = 0; i < len; i++) {
-                requestApkInfo(apps[i], false);
-            }
-        }
-    }
-
     /**
      * 添加下载任务
      *
@@ -205,10 +189,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      */
     private void addDownload(String type, String url, boolean isSystem) {
         try {
+            //apk下载路径
             String target = Contacts.BASE_PATH + type + ".apk";
             if (isSystem) {
+                //系统镜像下载路径
                 target = Contacts.PATH_UPDATE;
             }
+            Utils.log("下载链接：" + url);
             downloadManager.addNewDownload(url, type, target, isSystem, true, new RequestCallBack<File>() {
 
                 @Override
@@ -240,48 +227,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * 解析预安装第三方应用信息
-     *
-     * @param result
-     */
-    private void resolveAppInfo(String result, boolean onlyCheck) {
-        try {
-            JSONTokener parse = new JSONTokener(result);
-            JSONObject object = (JSONObject) parse.nextValue();
-            if (object.optInt("code") == 200) {
-                JSONArray values = object.optJSONArray("apkinfos");
-                if (values.length() > 0) {
-                    JSONObject info = values.optJSONObject(0);
-                    String type = info.optString("apktype");
-                    App app = new App(info.optInt("apkId"),
-                            info.optString("apkname"),
-                            info.optString("apkdownloadurl"),
-                            info.optString("apkpackagename"),
-                            type);
-                    try {
-                        dbUtils.update(app);
-                    } catch (DbException e) {
-                        e.printStackTrace();
-                    }
-                    if (onlyCheck)
-                        openOrDownload(type, true);
-                }
-            } else {
-                Utils.toast(HomeActivity.this, "服务器异常");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 存储默认内置应用信息
      */
     private void saveDefaultInfo() {
+        //内置应用类型
         String[] types = {Contacts.TYPE_MOVIE, Contacts.TYPE_MUSIC, Contacts.TYPE_BROWSER, Contacts.TYPE_GAME,
-                Contacts.TYPE_NEWS, Contacts.TYPE_MARKET};
+                Contacts.TYPE_NEWS, Contacts.TYPE_MARKET, Contacts.TYPE_DOCUMENT};
+        //内置应用包名
         String[] packages = {Contacts.PACKAGE_MOVIE, Contacts.PACKAGE_MUSIC, Contacts.PACKAGE_BROWSER, Contacts.PACKAGE_GAME,
-                Contacts.PACKAGE_NEWS, Contacts.PACKAGE_MARKET,};
+                Contacts.PACKAGE_NEWS, Contacts.PACKAGE_MARKET, Contacts.PACKAGE_DOCUMENT};
         App app = new App();
         int len = types.length;
         for (int i = 0; i < len; i++) {
@@ -292,31 +246,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /**
-     * 查询需要安装的应用的信息
-     *
-     * @param appType
+     * 初始化UpView
      */
-    private void requestApkInfo(final String appType, final boolean onlyCheck) {
-        if (!Utils.isNetworkAvailable(HomeActivity.this) && !onlyCheck) {//没网
-            openOrDownload(appType, false);
-        } else {
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("appType", appType);
-            HttpUtils httpUtils = new HttpUtils();
-            httpUtils.send(HttpRequest.HttpMethod.POST, Contacts.GET_TYPE_CHILD_URL, params, new RequestCallBack<String>() {
-                @Override
-                public void onSuccess(ResponseInfo<String> responseInfo) {
-                    resolveAppInfo(responseInfo.result, onlyCheck);
-                }
-
-                @Override
-                public void onFailure(HttpException e, String s) {
-                    Utils.toast(HomeActivity.this, "请检查网络连接~");
-                }
-            });
-        }
-    }
-
     private void initUpView() {
         mainUpView1 = (MainUpView) findViewById(R.id.mainUpView2);
         mainUpView1.setUpRectResource(R.drawable.white_light_10); // 设置移动边框的图片.
@@ -367,7 +298,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
+    /**
+     * 去除电影、音乐、游戏模块聚焦时的遮盖层
+     */
     private void hideOver() {
+        //电影
         if (showMovieTip) {
             mMovieIcon.setVisibility(View.GONE);
             mMovieLife.setVisibility(View.VISIBLE);
@@ -375,6 +310,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             mTvMovieTip.setVisibility(View.GONE);
             showMovieTip = false;
         }
+        //音乐
         if (showMusicTip) {
             mMusicIcon.setVisibility(View.GONE);
             mMusicArea.setVisibility(View.VISIBLE);
@@ -382,6 +318,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             mTvMusicTip.setVisibility(View.GONE);
             showMusicTip = false;
         }
+        //游戏
         if (showGameTip) {
             mGameIcon.setVisibility(View.GONE);
             mGameCenter.setVisibility(View.VISIBLE);
@@ -395,10 +332,32 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         currentModule = 0;
-        checkAppInfoUpdate();
+        //请求内置应用和模块背景图信息
+        requestAppAndImgInfo();
+        //杀死后台进程
         Utils.killAll(this);
-        REQUEST_TIMES = 0;
-        requestBgInfo();
+    }
+
+    /**
+     * 请求内置应用和模块背景图信息
+     */
+    private void requestAppAndImgInfo() {
+        HttpUtils httpUtils = new HttpUtils(10 * 1000);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("mac", Utils.getLocalMacAddress(this));
+        httpUtils.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM, params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Utils.log("系统信息：" + responseInfo.result);
+                JsonUtils.resolveProductResult(responseInfo.result);
+                initImageUrl();
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+
+            }
+        });
     }
 
     /**
@@ -412,46 +371,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             gameUrl.clear();
             for (BgImage image : list) {
                 switch (image.getType()) {
-                    case "movie":
+                    case Contacts.TYPE_MOVIE://电影背景图
                         movieUrl.add(image.getUrl());
                         break;
 
-                    case "music":
+                    case Contacts.TYPE_MUSIC://音乐背景图
                         musicUrl.add(image.getUrl());
                         break;
 
-                    case "game":
+                    case Contacts.TYPE_GAME://游戏背景图
                         gameUrl.add(image.getUrl());
                         break;
                 }
             }
             handler.sendEmptyMessage(1);
-        } else {
-            if (REQUEST_TIMES < 3) {
-                requestBgInfo();
-                REQUEST_TIMES++;
-            }
         }
-    }
-
-    /**
-     * 查询数据库图片是否更新
-     */
-    private void requestBgInfo() {
-        HttpUtils httpUtils = new HttpUtils(10 * 1000);
-        httpUtils.send(HttpRequest.HttpMethod.GET, Contacts.URL_IMAGE_UPDATE, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                BgImageUtil.resolveImg(responseInfo.result);
-                initImageUrl();
-                handler.sendEmptyMessage(1);
-            }
-
-            @Override
-            public void onFailure(HttpException e, String s) {
-                Utils.log("背景图片查询失败：" + s);
-            }
-        });
     }
 
     @Override
@@ -471,6 +405,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         super.onPause();
     }
 
+    /**
+     * 初始化动画
+     */
     private void initAnimation() {
         switch (currentModule) {
             case 0:
@@ -535,7 +472,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     break;
 
                 case 2:
-                    imageLoader.displayImage(Contacts.KUPA_DOMAIN_NAME + currentUrl, currentOverView, options, new ImageLoadingListener() {
+                    imageLoader.displayImage(Contacts.BASE_URI + currentUrl, currentOverView, options, new ImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String s, View view) {
 
@@ -616,40 +553,45 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 progress = (int) (info.getProgress() * 100 / info.getFileLength());
             }
             switch (fileName) {
-                case Contacts.TYPE_MOVIE:
+                case Contacts.TYPE_MOVIE://电影模块
                     showState(fdv_movie, state, progress, info, mMovieLife, coverMovie);
                     MOVIE_STATE = state;
                     mMovieIcon.setVisibility(View.GONE);
                     break;
 
-                case Contacts.TYPE_MUSIC:
+                case Contacts.TYPE_MUSIC://音乐模块
                     showState(fdv_music, state, progress, info, mMusicArea, coverMusic);
                     MUSIC_STATE = state;
                     mMusicIcon.setVisibility(View.GONE);
                     break;
 
-                case Contacts.TYPE_GAME:
+                case Contacts.TYPE_GAME://游戏模块
                     showState(fdv_game, state, progress, info, mGameCenter, coverGame);
                     GAME_STATE = state;
                     mGameIcon.setVisibility(View.GONE);
                     break;
 
-                case Contacts.TYPE_NEWS:
+                case Contacts.TYPE_NEWS://新闻模块
                     showState(fdv_news, state, progress, info, mTvNews, coverNews);
                     NEWS_STATE = state;
                     break;
 
-                case Contacts.TYPE_BROWSER:
+                case Contacts.TYPE_BROWSER://浏览器模块
                     showState(fdv_ie, state, progress, info, mTvIe, coverIe);
                     IE_STATE = state;
                     break;
 
-                case Contacts.TYPE_MARKET:
+                case Contacts.TYPE_MARKET://应用市场模块
                     showState(fdv_store, state, progress, info, mTvStore, coverStore);
                     STORE_STATE = state;
                     break;
 
-                case Contacts.TYPE_LAUNCHER:
+                case Contacts.TYPE_DOCUMENT://文件管理器模块
+                    showState(fdv_file, state, progress, info, mTvFile, coverFile);
+                    DOCUMENT_STATE = state;
+                    break;
+
+                case Contacts.TYPE_LAUNCHER://系统更新
                     if (state == SUCCESS) {
                         try {
                             UpdateUtils.installPackage(HomeActivity.this, new File(Contacts.PATH_UPDATE));
@@ -671,9 +613,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 显示下载状态
      *
-     * @param view
-     * @param state
-     * @param progress
+     * @param view     自定义下载动画
+     * @param state    下载状态
+     * @param progress 下载进度
+     * @param info     下载实体
+     * @param mTvTip   模块TextView
+     * @param cover    模块遮罩层
      */
     private void showState(FreshDownloadView view, int state, int progress, DownloadInfo info, TextView mTvTip, View cover) {
         if (state == STARTED) {
@@ -711,30 +656,33 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      * @param type
      */
     private void initState(String type) {
-        Utils.log("初始化状态：" + type);
         switch (type) {
-            case Contacts.TYPE_MOVIE:
+            case Contacts.TYPE_MOVIE://电影模块
                 MOVIE_STATE = DEFAULT;
                 break;
 
-            case Contacts.TYPE_MUSIC:
+            case Contacts.TYPE_MUSIC://音乐模块
                 MUSIC_STATE = DEFAULT;
                 break;
 
-            case Contacts.TYPE_GAME:
+            case Contacts.TYPE_GAME://游戏模块
                 GAME_STATE = DEFAULT;
                 break;
 
-            case Contacts.TYPE_NEWS:
+            case Contacts.TYPE_NEWS://新闻模块
                 NEWS_STATE = DEFAULT;
                 break;
 
-            case Contacts.TYPE_BROWSER:
+            case Contacts.TYPE_BROWSER://浏览器模块
                 IE_STATE = DEFAULT;
                 break;
 
-            case Contacts.TYPE_MARKET:
+            case Contacts.TYPE_MARKET://应用市场模块
                 STORE_STATE = DEFAULT;
+                break;
+
+            case Contacts.TYPE_DOCUMENT://文件管理模块
+                DOCUMENT_STATE = DEFAULT;
                 break;
         }
     }
@@ -768,6 +716,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 下载完成，显示正常状态
+     *
+     * @param type      模块类型
+     * @param isSuccess 是否下载成功
+     */
     private void hideDownloadState(String type, boolean isSuccess) {
         initState(type);
         switch (type) {
@@ -819,14 +773,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 hideOption(fdv_store, mTvStore, R.string.market, coverStore);
                 break;
 
+            case Contacts.TYPE_DOCUMENT:
+                type = "文件管理";
+                hideOption(fdv_file, mTvFile, R.string.document, coverFile);
+                break;
+
             default:
                 type = "系统";
                 break;
         }
         if (isSuccess)
-            Utils.toast(HomeActivity.this, type + "应用安装完成");
+            showToast(type + "应用安装完成");
     }
 
+    /**
+     * 去除下载状态
+     *
+     * @param fdv      下载动画
+     * @param textView 模块textView
+     * @param res      模块名
+     * @param cover    遮盖层
+     */
     private void hideOption(FreshDownloadView fdv, TextView textView, int res, View cover) {
         fdv.setVisibility(View.GONE);
         textView.setText(res);
@@ -854,7 +821,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             public void onYesClick() {
                 dialog.dismiss();
                 showUpdateTips();
-                addDownload(Contacts.TYPE_LAUNCHER, Contacts.KUPA_DOMAIN_NAME + systemInfo.getVersionDownloadUrl(), true);
+                addDownload(Contacts.TYPE_LAUNCHER, Contacts.BASE_URI + systemInfo.getVersionDownloadUrl(), true);
             }
         });
         dialog.show();
@@ -878,6 +845,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         dialog.show();
     }
 
+    /**
+     * 初始化imageLoader
+     */
     private void initImageLoader() {
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder()
@@ -892,70 +862,65 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.main_movie:
+            case R.id.main_movie://电影模块
                 if (hasClickTip(MOVIE_STATE)) {
-                    openOrDownload(Contacts.TYPE_MOVIE, true);
+                    openOrDownload(Contacts.TYPE_MOVIE);
                 }
                 break;
 
-            case R.id.main_app:
+            case R.id.main_app://我的应用模块
                 startActivity(new Intent(this, MyAppActivity.class));
                 overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
                 break;
 
-            case R.id.main_ie:
+            case R.id.main_ie://浏览器模块
                 if (hasClickTip(IE_STATE)) {
-                    openOrDownload(Contacts.TYPE_BROWSER, true);
+                    openOrDownload(Contacts.TYPE_BROWSER);
                 }
                 break;
 
-            case R.id.main_game:
+            case R.id.main_game://游戏模块
                 if (hasClickTip(GAME_STATE)) {
-                    openOrDownload(Contacts.TYPE_GAME, true);
+                    openOrDownload(Contacts.TYPE_GAME);
                 }
                 break;
 
-            case R.id.main_music:
+            case R.id.main_music://音乐模块
                 if (hasClickTip(MUSIC_STATE)) {
-                    openOrDownload(Contacts.TYPE_MUSIC, true);
+                    openOrDownload(Contacts.TYPE_MUSIC);
                 }
                 break;
 
-            case R.id.main_app_store:
+            case R.id.main_app_store://应用市场模块
                 if (hasClickTip(STORE_STATE)) {
-                    openOrDownload(Contacts.TYPE_MARKET, true);
+                    openOrDownload(Contacts.TYPE_MARKET);
                 }
                 break;
 
-            //设置
-            case R.id.main_setting:
+            case R.id.main_setting://设置模块
                 startActivity(new Intent(this, SettingsActivity.class));
                 overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
                 break;
 
-            //文件管理
-            case R.id.main_file:
-                //P1系统自带文件管理器
-                Intent intent = new Intent();
-                ComponentName cm = new ComponentName("com.softwinner.TvdFileManager",
-                        "com.softwinner.TvdFileManager.MainUI");
-                intent.setComponent(cm);
-                startActivity(intent);
+            case R.id.main_file://文件管理模块
+                if (hasClickTip(DOCUMENT_STATE)) {
+                    openOrDownload(Contacts.TYPE_DOCUMENT);
+                }
                 break;
 
-            case R.id.main_news:
+            case R.id.main_news://新闻模块
                 if (hasClickTip(NEWS_STATE)) {
-                    openOrDownload(Contacts.TYPE_NEWS, true);
+                    openOrDownload(Contacts.TYPE_NEWS);
                 }
                 break;
         }
     }
 
     /**
-     * 点击提示
+     * 点击提示下载状态
      *
-     * @param state
-     * @return
+     * @param state 下载状态
+     * @return 是否下载完成
      */
     private boolean hasClickTip(int state) {
         boolean flag = false;
@@ -963,11 +928,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             switch (state) {
                 case STARTED:
                 case LOADING:
-                    Utils.toast(HomeActivity.this, "正在下载，请稍后");
+                    showToast("正在下载，请稍后");
                     break;
 
-                case INSTALL:
-                    Utils.toast(HomeActivity.this, "正在安装，请稍后");
+                case SUCCESS:
+                    showToast("正在安装，请稍后");
                     break;
 
                 case FAILURE:
@@ -983,27 +948,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 打开还是下载第三方应用
      *
-     * @param type
+     * @param type 下载类型
      */
-    private void openOrDownload(String type, boolean hasNetwork) {
+    private void openOrDownload(String type) {
         App app = DBUtils.getOtherPackageName(type);
-        if (TextUtils.isEmpty(app.getPackageName())) {//查询应用信息
-            if (hasNetwork) {
-                requestApkInfo(type, false);
-            } else {
-                Utils.toast(HomeActivity.this, "请检查网络连接");
-            }
-        } else {
+        if (app != null) {
             String packageName = app.getPackageName();
-            Utils.log("packageName：" + app.getPackageName());
+            //检查是否安装
             boolean hasInstalled = Utils.isAppInstalled(this, packageName);
             if (hasInstalled) {//打开
                 Utils.openOtherApp(this, packageName);
-            } else if (hasNetwork) {//下载
-                addDownload(app.getType(), Contacts.KUPA_DOMAIN_NAME + app.getUrl(), false);
-                Utils.log("下载链接：" + app.getUrl());
-            } else {
-                Utils.toast(HomeActivity.this, "请检查网络连接");
+            } else {//下载
+                if (Network.isConnected(this))
+                    addDownload(app.getType(), Contacts.BASE_URI + app.getUrl(), false);
+                else
+                    showToast("请检查网络连接");
             }
         }
     }
@@ -1017,7 +976,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
      */
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
     }
 
     /**
@@ -1042,10 +1000,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 Utils.log("定位成功");
                 address = location.getAddrStr();
                 if (!TextUtils.isEmpty(address)) {
-                    checkSystemUpdate();
                     mLocationClient.stop();
-                    BaiDuMapUtils.saveAddress(HomeActivity.this, address);
                     Utils.log("定位的地址：" + address);
+                    //保存定位地址
+                    BaiDuMapUtils.saveAddress(HomeActivity.this, address);
                 }
             } else {
                 Utils.log("定位失败");
@@ -1059,6 +1017,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    //初始化组件
     private void getViews() {
         mMovieIcon = (ImageView) findViewById(R.id.iv_movie);
         mMusicIcon = (ImageView) findViewById(R.id.iv_music);
@@ -1085,10 +1044,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         fdv_ie = (FreshDownloadView) findViewById(R.id.fdv_ie);
         fdv_news = (FreshDownloadView) findViewById(R.id.fdv_news);
         fdv_store = (FreshDownloadView) findViewById(R.id.fdv_store);
+        fdv_file = (FreshDownloadView) findViewById(R.id.fdv_file);
 
         mTvIe = (TextView) findViewById(R.id.tv_ie);
         mTvNews = (TextView) findViewById(R.id.tv_news);
         mTvStore = (TextView) findViewById(R.id.tv_store);
+        mTvFile = (TextView) findViewById(R.id.tv_file);
 
         coverMovie = findViewById(R.id.cover_movie);
         coverMusic = findViewById(R.id.cover_music);
@@ -1096,6 +1057,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         coverNews = findViewById(R.id.cover_news);
         coverIe = findViewById(R.id.cover_ie);
         coverStore = findViewById(R.id.cover_store);
+        coverFile = findViewById(R.id.cover_file);
 
         findViewById(R.id.main_movie).setOnClickListener(this);
         findViewById(R.id.main_music).setOnClickListener(this);
