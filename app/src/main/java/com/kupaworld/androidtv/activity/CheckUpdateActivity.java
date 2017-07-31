@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -15,9 +17,10 @@ import com.kupaworld.androidtv.download.DownloadInfo;
 import com.kupaworld.androidtv.download.DownloadManager;
 import com.kupaworld.androidtv.download.DownloadService;
 import com.kupaworld.androidtv.entity.SystemInfo;
-import com.kupaworld.androidtv.util.BaiDuMapUtils;
 import com.kupaworld.androidtv.util.Contacts;
 import com.kupaworld.androidtv.util.JsonUtils;
+import com.kupaworld.androidtv.util.Network;
+import com.kupaworld.androidtv.util.Toastor;
 import com.kupaworld.androidtv.util.UpdateUtils;
 import com.kupaworld.androidtv.util.Utils;
 import com.kupaworld.androidtv.view.DynamicWave;
@@ -58,6 +61,8 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
     private final int FAILURE = 3;
     private final int SUCCESS = 5;
 
+    private AlphaAnimation alphaAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,20 +78,26 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
      * 检测系统升级
      */
     private void checkSystemUpdate() {
+        mTvUpdate.setClickable(false);
+        mTvUpdate.setText("正在检测");
         String mac = Utils.getLocalMacAddress(this);
         if (!TextUtils.isEmpty(mac)) {
             int version = Utils.getVersionCode(this);
             HttpUtils http = new HttpUtils(10 * 1000);
             RequestParams params = new RequestParams();
             params.addBodyParameter("mac", mac);
-            params.addBodyParameter("detailAddress", BaiDuMapUtils.getAddress(this));
             params.addBodyParameter("version", String.valueOf(version));
-            http.send(HttpRequest.HttpMethod.POST, Contacts.URL_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
+            http.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
-                    systemInfo = JsonUtils.resolveResult(CheckUpdateActivity.this, responseInfo.result);
+                    Utils.log("检查系统更新结果：" + responseInfo.result);
+                    systemInfo = JsonUtils.resolveResult(responseInfo.result);
                     if (null != systemInfo) {
                         resolveResult();
+                    } else {
+                        mTvUpdate.setClickable(true);
+                        mTvUpdate.setText("检测更新");
+                        showToast("当前已是最新版本");
                     }
                 }
 
@@ -184,7 +195,11 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                 break;
 
             case FAILURE:
-                Utils.toast(CheckUpdateActivity.this, "下载失败，请检查网络");
+                if (Network.isConnected(this))
+                    showToast("下载失败，请稍后重试");
+                else
+                    showToast("下载失败，请检查网络");
+
                 mFlProgress.setVisibility(View.GONE);
                 mTvUpdate.setText("立即升级");
                 mTvUpdate.setFocusable(true);
@@ -197,13 +212,23 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
     private void resolveResult() {
         if (systemInfo.getResult().equals("ok")) {
             url = systemInfo.getVersionDownloadUrl();
-            mTvNewVersion.setText("最新版本：" + systemInfo.getVersionName());
+            mTvNewVersion.setText("最新版本：Kupa TV " + systemInfo.getVersionName());
             mTvDesc.setText("更新内容：" + systemInfo.getVersionInformation());
             mTvDate.setText("发布日期：" + Utils.formatDate(systemInfo.getUpdateTime()));
             mFlUpdate.setVisibility(View.VISIBLE);
             mTvWatchAll.setVisibility(View.VISIBLE);
+
+            alphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(CheckUpdateActivity.this, R.anim.alpha);
+            mFlUpdate.startAnimation(alphaAnimation);
+            mTvWatchAll.startAnimation(alphaAnimation);
+
+
+            alphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(CheckUpdateActivity.this, R.anim.alphaout);
+            mTvNoVersion.startAnimation(alphaAnimation);
+
             mTvNoVersion.setVisibility(View.GONE);
             if (!isDownload) {
+                mTvUpdate.setClickable(true);
                 mTvUpdate.setText("立即升级");
                 mTvUpdate.setBackgroundResource(R.drawable.btn_update_selector);
             }
@@ -283,8 +308,13 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.update_btn:
                 if (!isDownload) {
-                    isClick = true;
-                    addDownload(Contacts.TYPE_LAUNCHER, Contacts.KUPA_DOMAIN_NAME + url);
+                    if (TextUtils.isEmpty(url)) {
+                        checkSystemUpdate();
+                    } else {
+                        isClick = true;
+                        addDownload(Contacts.TYPE_LAUNCHER, Contacts.BASE_URI + url);
+                        mTvWatchAll.requestFocus();
+                    }
                 }
                 break;
 
@@ -320,7 +350,8 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             Intent intent = new Intent("softwinner.intent.action.RECOVREY");
             startActivity(intent);
         } else {
-            Utils.toast(this, "暂不支持本地升级");
+            showToast("暂不支持本地升级");
         }
     }
+
 }

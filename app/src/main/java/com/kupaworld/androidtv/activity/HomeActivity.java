@@ -807,7 +807,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         final TipDialog dialog = new TipDialog(this, R.style.MyDialog);
         dialog.setEdit(false);
         dialog.setTitle("Kupa TV发现新版本");
-        dialog.setMessage(msg);
+        dialog.setMessage("Kupa TV "+msg);
         dialog.setYesText("升级");
         dialog.setCancleText("取消");
         dialog.setNoClickListener(new TipDialog.OnNoClickListener() {

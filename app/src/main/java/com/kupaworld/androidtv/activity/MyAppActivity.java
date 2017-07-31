@@ -25,8 +25,9 @@ import android.widget.TextView;
 
 import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.adapter.AppsAdapter;
-import com.kupaworld.androidtv.mode.AppInfo;
+import com.kupaworld.androidtv.entity.AppInfo;
 import com.kupaworld.androidtv.util.Contacts;
+import com.kupaworld.androidtv.util.Toastor;
 import com.kupaworld.androidtv.util.Utils;
 import com.kupaworld.androidtvwidget.bridge.EffectNoDrawBridge;
 import com.kupaworld.androidtvwidget.view.GridViewTV;
@@ -258,7 +259,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Utils.toast(this, "正在安装，请等待");
+            showToast("正在安装，请等待");
         }
     }
 

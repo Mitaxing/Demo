@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kupaworld.androidtv.R;
-import com.kupaworld.androidtv.mode.AppInfo;
+import com.kupaworld.androidtv.entity.AppInfo;
 
 import java.util.List;
 

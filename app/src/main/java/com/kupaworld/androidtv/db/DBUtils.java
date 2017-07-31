@@ -14,11 +14,16 @@ public class DBUtils {
 
     private static DbUtils dbUtils = SysApplication.dbUtils;
 
+    /**
+     * 通过类型获取包名
+     *
+     * @param type 应用类型
+     * @return 应用包名
+     */
     public static App getOtherPackageName(String type) {
         App app = null;
         try {
             app = dbUtils.findById(App.class, type);
-            Utils.log("查询的包名：" + app.getPackageName());
         } catch (DbException e) {
             e.printStackTrace();
             Utils.log("查询失败：" + e.getMessage());
@@ -28,7 +33,8 @@ public class DBUtils {
 
     /**
      * 没有并保存
-     * @param app
+     *
+     * @param app 应用
      */
     public static void noSoSave(App app) {
         try {
@@ -40,40 +46,4 @@ public class DBUtils {
             e.printStackTrace();
         }
     }
-//    private static DbManager db;
-//
-//    private static DbManager getManager() {
-//        DbManager.DaoConfig daoConfig = DBConfig.getDaoConfig();
-//        return x.getDb(daoConfig);
-//    }
-//
-//    /**
-//     * 保存内置应用信息
-//     *
-//     * @param app
-//     */
-//    public static void saveApp(App app) {
-//        try {
-//            db = getManager();
-//            db.saveOrUpdate(app);
-//        } catch (DbException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 查询第三方应用信息
-//     *
-//     * @return
-//     */
-//    public static App getOtherPackageName(String type) {
-//        App app = null;
-//        try {
-//            db = getManager();
-//            app = db.findById(App.class, type);
-//        } catch (DbException e) {
-//            e.printStackTrace();
-//        }
-//        return app;
-//    }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 
@@ -88,7 +89,9 @@ public class Network {
         NetworkInfo[] nets = getConnectivityManager(context).getAllNetworkInfo();
         if (nets != null) {
             for (NetworkInfo net : nets) {
-                if (net.isConnectedOrConnecting()) { return true; }
+                if (net.isConnectedOrConnecting()) {
+                    return true;
+                }
             }
         }
         return false;
@@ -147,7 +150,9 @@ public class Network {
         NetworkInfo[] nets = getConnectivityManager(context).getAllNetworkInfo();
         if (nets != null) {
             for (NetworkInfo net : nets) {
-                if (net.getType() == ConnectivityManager.TYPE_WIFI) { return net.isAvailable(); }
+                if (net.getType() == ConnectivityManager.TYPE_WIFI) {
+                    return net.isAvailable();
+                }
             }
         }
         return false;
@@ -167,7 +172,9 @@ public class Network {
         NetworkInfo[] nets = getConnectivityManager(context).getAllNetworkInfo();
         if (nets != null) {
             for (NetworkInfo net : nets) {
-                if (net.getType() == ConnectivityManager.TYPE_MOBILE) { return net.isAvailable(); }
+                if (net.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    return net.isAvailable();
+                }
             }
         }
         return false;
@@ -221,7 +228,7 @@ public class Network {
 
     /**
      * get connected network type by {@link ConnectivityManager}
-     *
+     * <p>
      * such as WIFI, MOBILE, ETHERNET, BLUETOOTH, etc.
      *
      * @return {@link ConnectivityManager#TYPE_WIFI}, {@link ConnectivityManager#TYPE_MOBILE},
@@ -230,9 +237,7 @@ public class Network {
     public static int getConnectedTypeINT(Context context) {
         NetworkInfo net = getConnectivityManager(context).getActiveNetworkInfo();
         if (net != null) {
-            if (Log.isPrint) {
-                Log.i(TAG, "NetworkInfo: " + net.toString());
-            }
+            Log.i(TAG, "NetworkInfo: " + net.toString());
             return net.getType();
         }
         return -1;
@@ -240,7 +245,7 @@ public class Network {
 
     /**
      * get network type by {@link TelephonyManager}
-     *
+     * <p>
      * such as 2G, 3G, 4G, etc.
      *
      * @return {@link TelephonyManager#NETWORK_TYPE_CDMA}, {@link TelephonyManager#NETWORK_TYPE_GPRS},

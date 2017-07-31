@@ -26,7 +26,6 @@ public class BaiDuMapUtils {
      */
     private static void updateLocation(Context context, String location) {
         HttpUtils httpUtils = new HttpUtils(10 * 1000);
-//        String url = Contacts.URI_LOCATION + "?mac=" + Utils.getLocalMacAddress(context) + "&&localtion=" + location;
         RequestParams params = new RequestParams();
         params.addBodyParameter("mac", Utils.getLocalMacAddress(context));
         params.addBodyParameter("localtion", location);
@@ -108,6 +107,7 @@ public class BaiDuMapUtils {
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("address", address).apply();
 
+            //更新后台设备地址
             updateLocation(context, address);
         } else {
             Utils.log("地理位置不变");

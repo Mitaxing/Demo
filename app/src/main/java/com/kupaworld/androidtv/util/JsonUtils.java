@@ -24,6 +24,7 @@ public class JsonUtils {
     private static List<BgImage> imgList = new ArrayList<>();
 
     public static SystemInfo resolveResult(String result) {
+        Utils.log("系统更新：" + result);
         SystemInfo info = null;
         JSONTokener parse = new JSONTokener(result);
         try {

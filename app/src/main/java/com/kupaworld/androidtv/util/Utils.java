@@ -19,6 +19,8 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kupaworld.androidtv.application.SysApplication;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,6 +33,7 @@ import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by admin on 2017/5/16.
@@ -114,47 +117,6 @@ public class Utils {
     }
 
     /**
-     * 检查当前网络是否可用
-     *
-     * @param context
-     * @return
-     */
-
-    public static boolean isNetworkAvailable(Context context) {
-        // 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivityManager == null) {
-            return false;
-        } else {
-            // 获取NetworkInfo对象
-            NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
-
-            if (networkInfo != null && networkInfo.length > 0) {
-                for (int i = 0; i < networkInfo.length; i++) {
-                    System.out.println(i + "===状态===" + networkInfo[i].getState());
-                    System.out.println(i + "===类型===" + networkInfo[i].getTypeName());
-                    // 判断当前网络状态是否为连接状态
-                    if (networkInfo[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    //打开APK程序代码
-    public static void openFile(Context context, File file) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),
-                "application/vnd.android.package-archive");
-        context.startActivity(intent);
-    }
-
-    /**
      * Toast
      *
      * @param context
@@ -165,7 +127,8 @@ public class Utils {
     }
 
     public static void log(String msg) {
-        Log.i("mita", msg);
+        if (SysApplication.isDebug)
+            Log.i("mita", msg);
     }
 
     /*
@@ -227,74 +190,10 @@ public class Utils {
         return Formatter.formatFileSize(context, number);
     }
 
-    /**
-     * 获取当前系统连接网络的网卡的mac地址
-     * @return
-     */
-    public static String getCurrentMac() {
-        byte[] mac = null;
-        StringBuffer sb = new StringBuffer();
-        try {
-            Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (netInterfaces.hasMoreElements()) {
-                NetworkInterface ni = netInterfaces.nextElement();
-                Enumeration<InetAddress> address = ni.getInetAddresses();
-                while (address.hasMoreElements()) {
-                    InetAddress ip = address.nextElement();
-                    if (ip.isAnyLocalAddress() || !(ip instanceof Inet4Address) || ip.isLoopbackAddress())
-                        continue;
-                    if (ip.isSiteLocalAddress())
-                        mac = ni.getHardwareAddress();
-                    else if (!ip.isLinkLocalAddress()) {
-                        mac = ni.getHardwareAddress();
-                        break;
-                    }
-                }
-            }
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-
-        if(mac != null){
-            for(int i=0 ;i<mac.length ;i++){
-                sb.append(parseByte(mac[i]));
-            }
-            return sb.substring(0, sb.length()-1);
-        }
-        return null;
-    }
 
     private static String parseByte(byte b) {
-        String s = "00" + Integer.toHexString(b)+":";
+        String s = "00" + Integer.toHexString(b) + ":";
         return s.substring(s.length() - 3);
-    }
-
-    /**
-     * 获取设备Mac地址
-     *
-     * @return
-     */
-    public static String getMac() {
-        String macSerial = null;
-        String str = "";
-
-        try {
-            Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address ");
-            InputStreamReader ir = new InputStreamReader(pp.getInputStream());
-            LineNumberReader input = new LineNumberReader(ir);
-
-            for (; null != str; ) {
-                str = input.readLine();
-                if (str != null) {
-                    macSerial = str.trim();// 去空格
-                    break;
-                }
-            }
-        } catch (IOException ex) {
-            // 赋予默认值
-            ex.printStackTrace();
-        }
-        return macSerial;
     }
 
     // 获取本机的物理地址
@@ -307,8 +206,9 @@ public class Utils {
 
     /**
      * 获取应用版本号
-     * @param context
-     * @return
+     *
+     * @param context context
+     * @return 版本号
      */
     public static int getVersionCode(Context context) {
         try {
@@ -323,8 +223,9 @@ public class Utils {
 
     /**
      * 获取应用版本名
-     * @param context
-     * @return
+     *
+     * @param context context
+     * @return 版本名
      */
     public static String getVersionName(Context context) {
         try {
@@ -337,8 +238,13 @@ public class Utils {
         return null;
     }
 
-    public static String formatDate(long time){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    /**
+     * 初始化日期
+     * @param time 时间
+     * @return
+     */
+    public static String formatDate(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.CHINA);
         return sdf.format(time);
     }
 }

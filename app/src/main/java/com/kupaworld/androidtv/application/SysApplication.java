@@ -25,6 +25,7 @@ import java.io.File;
 public class SysApplication extends Application {
 
     public static DbUtils dbUtils;
+    public static boolean isDebug;
 
     @Override
     public void onCreate() {
@@ -32,6 +33,7 @@ public class SysApplication extends Application {
         createDirectory();
         initImageLoader(this);
         createDatabase();
+        isDebug = false;
     }
 
     private void createDatabase() {

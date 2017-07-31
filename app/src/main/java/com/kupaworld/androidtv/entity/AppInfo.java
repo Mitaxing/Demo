@@ -1,4 +1,4 @@
-package com.kupaworld.androidtv.mode;
+package com.kupaworld.androidtv.entity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;

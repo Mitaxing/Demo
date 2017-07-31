@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.util.Contacts;
+import com.kupaworld.androidtv.util.Toastor;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -49,11 +50,24 @@ public class BaseActivity extends Activity {
 
     private boolean isLine;
 
+    private Toastor toastor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getViews();
         initImageLoader();
+    }
+
+    /**
+     * 显示toast信息
+     * @param msg
+     */
+    public void showToast(String msg) {
+        if (toastor == null) {
+            toastor = new Toastor(this);
+        }
+        toastor.showSingletonToast(msg);
     }
 
     @Override
@@ -113,7 +127,6 @@ public class BaseActivity extends Activity {
                 mIvWifi.setVisibility(View.GONE);
         } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {//已经打开
             mIvWifi.setVisibility(View.VISIBLE);
-        } else {//未知状态
         }
     }
 
@@ -270,10 +283,6 @@ public class BaseActivity extends Activity {
             final int event = intent.getIntExtra(Contacts.EXTRA_ETHERNET_STATE,
                     0);
             switch (event) {
-                case Contacts.ETHERNET_STATE_DISABLED:
-//                    changeWifiIcon(obtainWifiInfo());
-                    break;
-
                 case Contacts.ETHERNET_STATE_ENABLED:
                     changeWifiIcon(ETHERNET_POSITION);
                     isLine = true;
@@ -284,8 +293,6 @@ public class BaseActivity extends Activity {
                     changeWifiIcon(obtainWifiInfo());
                     break;
             }
-        } else if (Contacts.ETHERNET_STATE_CHANGED_ACTION.equals(action)) {
-
         }
     }
 
