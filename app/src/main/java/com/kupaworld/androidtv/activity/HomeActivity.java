@@ -809,7 +809,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         final TipDialog dialog = new TipDialog(this, R.style.MyDialog);
         dialog.setEdit(false);
         dialog.setTitle("Kupa TV发现新版本");
-        dialog.setMessage("Kupa TV "+msg);
+        dialog.setMessage("Kupa TV " + msg);
         dialog.setYesText("升级");
         dialog.setCancleText("取消");
         dialog.setNoClickListener(new TipDialog.OnNoClickListener() {
@@ -961,10 +961,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (hasInstalled) {//打开
                 Utils.openOtherApp(this, packageName);
             } else {//下载
-                if (Network.isConnected(this))
-                    addDownload(app.getType(), Contacts.BASE_URI + app.getUrl(), false);
-                else
-                    showToast("请检查网络连接");
+                String url = app.getUrl();
+                if (TextUtils.isEmpty(url) || url.equals("null"))
+                    showToast("应用信息缺失，请联系客服");
+                else {
+                    if (Network.isConnected(this)) {
+                        addDownload(app.getType(), Contacts.BASE_URI + app.getUrl(), false);
+                    } else
+                        showToast("请检查网络连接");
+                }
             }
         }
     }
