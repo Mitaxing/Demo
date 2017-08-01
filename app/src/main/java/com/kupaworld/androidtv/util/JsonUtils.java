@@ -55,18 +55,21 @@ public class JsonUtils {
             if (res.equals("ok")) {
                 JSONObject info = object.optJSONObject("info");
                 if (info != null) {
-
                     //apk信息
                     JSONObject apkObj = info.optJSONObject("mKupaTvProductSystemApk");
-                    apkList.clear();
-                    resolveApkInfo(apkObj);
-                    AppUtils.saveApps(apkList);
+                    if (apkObj != null) {
+                        apkList.clear();
+                        resolveApkInfo(apkObj);
+                        AppUtils.saveApps(apkList);
+                    }
 
                     //背景图信息
                     JSONObject bgObj = info.optJSONObject("mKupaTvProductSystemBackground");
-                    imgList.clear();
-                    hasImg = resolveImgInfo(bgObj);
-                    BgImageUtil.saveImages(imgList);
+                    if (bgObj != null) {
+                        imgList.clear();
+                        hasImg = resolveImgInfo(bgObj);
+                        BgImageUtil.saveImages(imgList);
+                    }
                 }
 
             }

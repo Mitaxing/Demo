@@ -137,6 +137,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         startLocation();
         //检测系统升级
         checkSystemUpdate();
+        //更新系统结果
+        UpdateUtils.updateSystemResult(this);
     }
 
     /**
