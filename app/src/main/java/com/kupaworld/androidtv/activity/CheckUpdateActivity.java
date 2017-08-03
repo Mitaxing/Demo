@@ -219,7 +219,15 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         if (systemInfo.getResult().equals("ok")) {
             url = systemInfo.getVersionDownloadUrl();
             mTvNewVersion.setText("最新版本：Kupa TV " + systemInfo.getVersionName());
-            mTvDesc.setText("更新内容：" + systemInfo.getVersionInformation());
+            String describe = systemInfo.getVersionInformation();
+            describe = describe.replace("\\\\n", ",");
+            String[] splits = describe.split(",");
+            int len = splits.length;
+            String info = "";
+            for (int i = 0; i < len; i++) {
+                info += splits[i];
+            }
+            mTvDesc.setText("更新内容：" + info);
             mTvDate.setText("发布日期：" + Utils.formatDate(systemInfo.getUpdateTime()));
             mFlUpdate.setVisibility(View.VISIBLE);
             mTvWatchAll.setVisibility(View.VISIBLE);
