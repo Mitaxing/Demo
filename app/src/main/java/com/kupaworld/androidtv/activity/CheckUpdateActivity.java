@@ -78,40 +78,41 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
      * 检测系统升级
      */
     private void checkSystemUpdate() {
-        mTvUpdate.setClickable(false);
-        mTvUpdate.setText("正在检测");
-        String mac = Utils.getLocalMacAddress(this);
-        if (!TextUtils.isEmpty(mac)) {
-            int version = Utils.getVersionCode(this);
-            HttpUtils http = new HttpUtils(10 * 1000);
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("mac", mac);
-            params.addBodyParameter("version", String.valueOf(version));
-            http.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
-                @Override
-                public void onSuccess(ResponseInfo<String> responseInfo) {
-                    Utils.log("检查系统更新结果：" + responseInfo.result);
-                    systemInfo = JsonUtils.resolveResult(responseInfo.result);
-                    if (null != systemInfo) {
-                        resolveResult();
-                    } else {
+        if (Network.isConnected(this)) {
+            mTvUpdate.setClickable(false);
+            mTvUpdate.setText("正在检测");
+            String mac = Utils.getLocalMacAddress(this);
+            if (!TextUtils.isEmpty(mac)) {
+                int version = Utils.getVersionCode(this);
+                HttpUtils http = new HttpUtils(10 * 1000);
+                RequestParams params = new RequestParams();
+                params.addBodyParameter("mac", mac);
+                params.addBodyParameter("version", String.valueOf(version));
+                http.send(HttpRequest.HttpMethod.POST, Contacts.URI_SYSTEM_UPDATE, params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        Utils.log("检查系统更新结果：" + responseInfo.result);
+                        systemInfo = JsonUtils.resolveResult(responseInfo.result);
+                        if (null != systemInfo) {
+                            resolveResult();
+                        } else {
+                            mTvUpdate.setClickable(true);
+                            mTvUpdate.setText("检测更新");
+                            showToast("当前已是最新版本");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+                        Utils.log("检测失败：" + s);
                         mTvUpdate.setClickable(true);
                         mTvUpdate.setText("检测更新");
-                        showToast("当前已是最新版本");
-                    }
-                }
-
-                @Override
-                public void onFailure(HttpException e, String s) {
-                    mTvUpdate.setClickable(true);
-                    mTvUpdate.setText("检测更新");
-                    if (Network.isConnected(CheckUpdateActivity.this))
                         showToast("检测失败，请稍后重试！");
-                    else
-                        showToast("请检查网络连接");
-                }
-            });
-        }
+                    }
+                });
+            }
+        } else
+            showToast("请检查网络连接");
     }
 
     Handler handler = new Handler() {

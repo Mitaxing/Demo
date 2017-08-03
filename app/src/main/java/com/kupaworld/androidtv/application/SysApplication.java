@@ -33,7 +33,7 @@ public class SysApplication extends Application {
         createDirectory();
         initImageLoader(this);
         createDatabase();
-        isDebug = false;
+        isDebug = true;
     }
 
     private void createDatabase() {
