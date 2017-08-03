@@ -170,7 +170,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     if (null != systemInfo) {
                         String result = systemInfo.getResult();
                         if ("ok".equals(result)) {
-                            showUpdateDialog(systemInfo.getVersionName() + "：" + systemInfo.getVersionInformation().replace("\\\\n","\n"));
+                            showUpdateDialog(systemInfo.getVersionName() + "：" + systemInfo.getVersionInformation().replace("\\n","\n"));
                         }
                     }
                 }

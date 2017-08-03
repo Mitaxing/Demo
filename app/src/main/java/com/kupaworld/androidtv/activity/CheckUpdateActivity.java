@@ -220,7 +220,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             url = systemInfo.getVersionDownloadUrl();
             mTvNewVersion.setText("最新版本：Kupa TV " + systemInfo.getVersionName());
             String describe = systemInfo.getVersionInformation();
-            describe = describe.replace("\\\\n", ",");
+            describe = describe.replace("\\n", ",");
             String[] splits = describe.split(",");
             int len = splits.length;
             String info = "";
