@@ -103,6 +103,12 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
 
                 @Override
                 public void onFailure(HttpException e, String s) {
+                    mTvUpdate.setClickable(true);
+                    mTvUpdate.setText("检测更新");
+                    if (Network.isConnected(CheckUpdateActivity.this))
+                        showToast("检测失败，请稍后重试！");
+                    else
+                        showToast("请检查网络连接");
                 }
             });
         }
