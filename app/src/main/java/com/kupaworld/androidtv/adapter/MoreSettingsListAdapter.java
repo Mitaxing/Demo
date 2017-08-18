@@ -16,12 +16,12 @@ import com.kupaworld.androidtv.R;
 public class MoreSettingsListAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] settings;
+    private int[] settings;
     private LayoutInflater inflater;
     private TextView mTvName;
     private int len;
 
-    public MoreSettingsListAdapter(Context context, String[] settings) {
+    public MoreSettingsListAdapter(Context context, int[] settings) {
         this.context = context;
         this.settings = settings;
         this.len = settings.length;

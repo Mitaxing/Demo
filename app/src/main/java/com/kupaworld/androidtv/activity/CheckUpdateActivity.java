@@ -80,7 +80,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
     private void checkSystemUpdate() {
         if (Network.isConnected(this)) {
             mTvUpdate.setClickable(false);
-            mTvUpdate.setText("正在检测");
+            mTvUpdate.setText(R.string.checking);
             String mac = Utils.getLocalMacAddress(this);
             if (!TextUtils.isEmpty(mac)) {
                 int version = Utils.getVersionCode(this);
@@ -97,8 +97,8 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                             resolveResult();
                         } else {
                             mTvUpdate.setClickable(true);
-                            mTvUpdate.setText("检测更新");
-                            showToast("当前已是最新版本");
+                            mTvUpdate.setText(R.string.check_for_update);
+                            showToast(R.string.now_is_new_version);
                         }
                     }
 
@@ -106,13 +106,13 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
                     public void onFailure(HttpException e, String s) {
                         Utils.log("检测失败：" + s);
                         mTvUpdate.setClickable(true);
-                        mTvUpdate.setText("检测更新");
-                        showToast("检测失败，请稍后重试！");
+                        mTvUpdate.setText(R.string.check_for_update);
+                        showToast(R.string.check_fail_try_again);
                     }
                 });
             }
         } else
-            showToast("请检查网络连接");
+            showToast(R.string.check_network);
     }
 
     Handler handler = new Handler() {
@@ -170,7 +170,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
      * @param progress
      */
     private void setDownloadProgress(int progress) {
-        mTvProgress.setText("下载中   " + progress + " %");
+        mTvProgress.setText(getString(R.string.downloading) + progress + " %");
         mDwProgress.setProgress(progress);
     }
 
@@ -203,12 +203,12 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
 
             case FAILURE:
                 if (Network.isConnected(this))
-                    showToast("下载失败，请稍后重试");
+                    showToast(R.string.download_fail_try_again);
                 else
-                    showToast("下载失败，请检查网络");
+                    showToast(R.string.download_fail_check_network);
 
                 mFlProgress.setVisibility(View.GONE);
-                mTvUpdate.setText("立即升级");
+                mTvUpdate.setText(R.string.upgrade_immediately);
                 mTvUpdate.setFocusable(true);
                 mTvUpdate.requestFocus();
                 isDownload = false;
@@ -219,7 +219,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
     private void resolveResult() {
         if (systemInfo.getResult().equals("ok")) {
             url = systemInfo.getVersionDownloadUrl();
-            mTvNewVersion.setText("最新版本：Kupa TV " + systemInfo.getVersionName());
+            mTvNewVersion.setText(getString(R.string.latest_version) +" "+ systemInfo.getVersionName());
             String describe = systemInfo.getVersionInformation();
             describe = describe.replace("\\n", ",");
             String[] splits = describe.split(",");
@@ -228,8 +228,8 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             for (int i = 0; i < len; i++) {
                 info += splits[i];
             }
-            mTvDesc.setText("更新内容：" + info);
-            mTvDate.setText("发布日期：" + Utils.formatDate(systemInfo.getUpdateTime()));
+            mTvDesc.setText(getString(R.string.update_content) + info);
+            mTvDate.setText(getString(R.string.release_date) + Utils.formatDate(systemInfo.getUpdateTime()));
             mFlUpdate.setVisibility(View.VISIBLE);
             mTvWatchAll.setVisibility(View.VISIBLE);
 
@@ -244,7 +244,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             mTvNoVersion.setVisibility(View.GONE);
             if (!isDownload) {
                 mTvUpdate.setClickable(true);
-                mTvUpdate.setText("立即升级");
+                mTvUpdate.setText(R.string.upgrade_immediately);
                 mTvUpdate.setBackgroundResource(R.drawable.btn_update_selector);
             }
         } else {
@@ -253,7 +253,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             mTvWatchAll.setVisibility(View.GONE);
             mTvUpdate.setBackgroundResource(R.drawable.btn_update_normal);
             mTvNoVersion.setVisibility(View.VISIBLE);
-            mTvUpdate.setText("检测更新");
+            mTvUpdate.setText(R.string.check_for_update);
         }
     }
 
@@ -310,7 +310,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
         mFlProgress = (FrameLayout) findViewById(R.id.update_progress_layout);
         mTvLocalUpdate = (TextView) findViewById(R.id.local_update_btn);
 
-        mTvTitle.setText("设置  |  系统升级");
+        mTvTitle.setText(R.string.setting_update);
         mTvVersion.setText("v" + Utils.getVersionName(this));
 
         mTvWatchAll.setOnClickListener(this);
@@ -365,7 +365,7 @@ public class CheckUpdateActivity extends BaseActivity implements View.OnClickLis
             Intent intent = new Intent("softwinner.intent.action.RECOVREY");
             startActivity(intent);
         } else {
-            showToast("暂不支持本地升级");
+            showToast(R.string.not_support_local_update);
         }
     }
 

@@ -39,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="@dimen/w_75"
-        android:text="@string/mainPage_time"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
 

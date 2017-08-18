@@ -40,8 +40,8 @@ import java.util.List;
  * MyApp
  */
 public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLongClickListener, OnItemSelectedListener, OnItemClickListener {
-    private final static String TAG = "MyAppActivity";
-    private List<AppInfo> mlistAppInfo = new ArrayList<>();
+
+    private List<AppInfo> mListAppInfo = new ArrayList<>();
     private MainUpView mainUpView1;
     private View mOldView;
     private TextView mNoApp;
@@ -87,7 +87,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
                 bm = BitmapFactory.decodeResource(getResources(), appIcons[i]);
                 BitmapDrawable bd = new BitmapDrawable(bm);
                 info.setAppIcon(bd);
-                mlistAppInfo.add(info);
+                mListAppInfo.add(info);
             }
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("isFirst", false).apply();
@@ -103,16 +103,16 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
 
     private void getAllApps() {
         PackageManager packageManager = getApplication().getPackageManager();
-        List<PackageInfo> paklist = packageManager.getInstalledPackages(0);
-        if (mlistAppInfo != null) {
-            mlistAppInfo.clear();
-            for (int i = 0; i < paklist.size(); i++) {
-                PackageInfo pak = paklist.get(i);
+        List<PackageInfo> pakList = packageManager.getInstalledPackages(0);
+        if (mListAppInfo != null) {
+            mListAppInfo.clear();
+            for (int i = 0; i < pakList.size(); i++) {
+                PackageInfo pak = pakList.get(i);
                 if ((pak.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) <= 0 && !pak.packageName.equals(getPackageName()) && !pak.packageName.equals(Contacts.SETTING_PACKAGE)) {
                     addAppInfo(pak, packageManager);
                 }
             }
-            mAppListSize = mlistAppInfo.size();
+            mAppListSize = mListAppInfo.size();
         }
     }
 
@@ -127,7 +127,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
         appInfo.setAppName((String) pak.applicationInfo.loadLabel(packageManager));
         appInfo.setAppIcon(pak.applicationInfo.loadIcon(packageManager));
         appInfo.setPackageName(pak.packageName);
-        mlistAppInfo.add(appInfo);
+        mListAppInfo.add(appInfo);
     }
 
     /**
@@ -147,7 +147,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
      * 初始化已安装应用列表
      */
     private void initGridView(GridViewTV gridView) {
-        mAdapter = new AppsAdapter(this, mlistAppInfo);
+        mAdapter = new AppsAdapter(this, mListAppInfo);
         gridView.setAdapter(mAdapter);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         gridView.setOnItemLongClickListener(this);
@@ -215,7 +215,7 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         mSavePos = position;
-        Utils.uninstallApk(this, mlistAppInfo.get(position).getPackageName());
+        Utils.uninstallApk(this, mListAppInfo.get(position).getPackageName());
         return true;
     }
 
@@ -255,11 +255,11 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
         mSavePos = position;
         try {
             PackageManager packageManager = getPackageManager();
-            Intent intent = packageManager.getLaunchIntentForPackage(mlistAppInfo.get(position).getPackageName());
+            Intent intent = packageManager.getLaunchIntentForPackage(mListAppInfo.get(position).getPackageName());
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            showToast("正在安装，请等待");
+            showToast(R.string.install_wait);
         }
     }
 
@@ -271,11 +271,11 @@ public class MyAppActivity extends BaseActivity implements AdapterView.OnItemLon
             }
             if (!isFirst) {
                 getAllApps();
-                mAppListSize = mlistAppInfo.size();
+                mAppListSize = mListAppInfo.size();
                 if (isCover)
-                    mGvCover.setAdapter(new AppsAdapter(MyAppActivity.this, mlistAppInfo));
+                    mGvCover.setAdapter(new AppsAdapter(MyAppActivity.this, mListAppInfo));
                 else
-                    gridView.setAdapter(new AppsAdapter(MyAppActivity.this, mlistAppInfo));
+                    gridView.setAdapter(new AppsAdapter(MyAppActivity.this, mListAppInfo));
                 refreshFocus();
             }
         }

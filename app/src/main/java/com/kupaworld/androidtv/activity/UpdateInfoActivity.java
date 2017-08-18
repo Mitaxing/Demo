@@ -26,7 +26,7 @@ public class UpdateInfoActivity extends Activity {
     private void initViews() {
         Intent intent = getIntent();
         mTvVersion.setText(intent.getStringExtra("version"));
-        mTvDate.setText("发布日期：" + intent.getStringExtra("date"));
+        mTvDate.setText(getString(R.string.release_date) + intent.getStringExtra("date"));
         String describe = intent.getStringExtra("describe");
         mTvDescribe.setText(describe.replace("\\n", "\n"));
     }

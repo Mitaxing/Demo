@@ -56,7 +56,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="网络连接"
+                    android:text="@string/network"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 
@@ -103,7 +103,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="画面调整"
+                    android:text="@string/adjustment"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 
@@ -150,7 +150,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="高级设置"
+                    android:text="@string/more"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 
@@ -197,7 +197,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="系统升级"
+                    android:text="@string/update"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 
@@ -244,7 +244,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="应用管理"
+                    android:text="@string/Application_management"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 
@@ -291,7 +291,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
-                    android:text="关于设备"
+                    android:text="@string/about"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 

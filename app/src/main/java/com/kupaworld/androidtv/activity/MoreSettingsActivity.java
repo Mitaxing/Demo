@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.adapter.MoreSettingsListAdapter;
@@ -18,9 +19,12 @@ import com.kupaworld.androidtv.adapter.MoreSettingsListAdapter;
 public class MoreSettingsActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     private ListView mLvList;
+    private TextView mTvTitle;
+
     private Intent intent;
     private MoreSettingsListAdapter adapter;
-    private String[] settigns = {"日期和时间", "语言和输入法", "存储", "安全", "恢复出厂设置", "开发者选项"};
+    private int[] settings = {R.string.date_and_time, R.string.language_and_inputmethod, R.string.storage,
+            R.string.security, R.string.master, R.string.development};
     private String[] intents = {Settings.ACTION_DATE_SETTINGS,
             Settings.ACTION_INPUT_METHOD_SETTINGS,
             Settings.ACTION_MEMORY_CARD_SETTINGS,
@@ -38,13 +42,16 @@ public class MoreSettingsActivity extends BaseActivity implements AdapterView.On
     }
 
     private void initListView() {
-        adapter = new MoreSettingsListAdapter(this, settigns);
+        adapter = new MoreSettingsListAdapter(this, settings);
         mLvList.setAdapter(adapter);
         mLvList.setOnItemClickListener(this);
     }
 
     private void getViews() {
         mLvList = (ListView) findViewById(R.id.more_settings_list);
+        mTvTitle = (TextView) findViewById(R.id.settings_title);
+
+        mTvTitle.setText(R.string.setting_more);
     }
 
     @Override

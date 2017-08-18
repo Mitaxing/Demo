@@ -296,7 +296,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
-                android:text="我的应用"
+                android:text="@string/my_app"
                 android:textSize="23sp" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
@@ -514,7 +514,7 @@
                 android:layout_gravity="center|bottom"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:text="文件管理"
+                android:text="@string/document"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 
@@ -554,7 +554,7 @@
                 android:layout_gravity="center|bottom"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:text="系统设置"
+                android:text="@string/system_setting"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 

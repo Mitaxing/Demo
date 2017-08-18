@@ -39,7 +39,7 @@
             android:id="@+id/update_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="v1.0.1"
+            tools:text="v1.0.1"
             android:textColor="@color/white"
             android:textSize="@dimen/h_36" />
     </LinearLayout>
@@ -56,7 +56,7 @@
             android:id="@+id/update_new_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最新版本：v1.0.2"
+            tools:text="最新版本：v1.0.2"
             android:textColor="@color/white"
             android:textSize="@dimen/h_36" />
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="发布日期：2016.12.16"
+            tools:text="发布日期：2016.12.16"
             android:textColor="@color/white"
             android:textSize="@dimen/h_36" />
 
@@ -91,7 +91,7 @@
         android:background="@drawable/watch_all_selector"
         android:focusable="true"
         android:gravity="center"
-        android:text="查看全部"
+        android:text="@string/see_all"
         android:textColor="@color/white"
         android:textSize="@dimen/h_20"
         android:visibility="gone" />
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/w_960"
         android:layout_marginTop="@dimen/h_380"
-        android:text="当前版本已是最新版本"
+        android:text="@string/now_is_new_version"
         android:textColor="@color/white"
         android:textSize="@dimen/h_26" />
 
@@ -115,7 +115,7 @@
         android:background="@drawable/btn_update_selector"
         android:focusable="true"
         android:gravity="center"
-        android:text="暂无更新"
+        android:text="@string/check_for_update"
         android:textColor="@color/white"
         android:textSize="@dimen/h_36" />
 
@@ -157,7 +157,7 @@
         android:background="@drawable/btn_update_selector"
         android:focusable="true"
         android:gravity="center"
-        android:text="本地升级"
+        android:text="@string/local_upgrade"
         android:textColor="@color/white"
         android:textSize="@dimen/h_36" />
 </FrameLayout>

@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by admin on 2016/12/13.
@@ -63,7 +64,18 @@ public class BaseActivity extends Activity {
      * 显示toast信息
      * @param msg
      */
-    public void showToast(String msg) {
+    public void showToast(int msg) {
+        if (toastor == null) {
+            toastor = new Toastor(this);
+        }
+        toastor.showSingletonToast(msg);
+    }
+
+    /**
+     * 显示toast信息
+     * @param msg
+     */
+    public void showStringToast(String msg) {
         if (toastor == null) {
             toastor = new Toastor(this);
         }
@@ -180,7 +192,7 @@ public class BaseActivity extends Activity {
     }
 
     private void getViews() {
-        sdf = new SimpleDateFormat("HH:mm");
+        sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
     }
 
     @Override

@@ -3,25 +3,83 @@
 
     <string name="app_name">Kupa TV</string>
 
-    <!-- 键盘自定义按键，这只是DEMO，你可以自定义自己的 -->
-    <!-- 空格 -->
-    <!-- 回车 -->
-    <!-- 返回 -->
-    <!-- 左边 -->
-    <!-- 右边 -->
-    <!-- 删除 -->
+    <!-- CheckUpdateActivity -->
+    <string name="now_is_new_version">The current version is the latest version</string>
+    <string name="check_for_update">Check Updates</string>
+    <string name="not_support_local_update">Local upgrades are not supported</string>
+    <string name="check_fail_try_again">Check for failure, please try again later</string>
+    <string name="check_network">Please check the Internet connection</string>
+    <string name="download_fail_try_again">Download failed, please try again later</string>
+    <string name="download_fail_check_network">Download failed, please check the network</string>
+    <string name="upgrade_immediately">Update</string>
+    <string name="latest_version">Latest version：Kupa TV</string>
+    <string name="update_content">Update the content：</string>
+    <string name="release_date">Release date：</string>
+    <string name="setting_update">Setting  |  System Update</string>
+    <string name="downloading">downloading</string>
+    <string name="checking">Checking</string>
+    <string name="see_all">All</string>
+    <string name="local_upgrade">Local upgrade</string>
 
-    <!-- viewpager 标题栏字体-->
+    <!-- HomeActivity -->
+    <string name="movie">Movie</string>
+    <string name="music">Music</string>
+    <string name="game">Game</string>
+    <string name="news">News</string>
+    <string name="browser">Browser</string>
+    <string name="market">App store</string>
+    <string name="document">File manager</string>
+    <string name="my_app">My apps</string>
+    <string name="system_setting">Settings</string>
+    <string name="app_install_complete"> application installation completion</string>
+    <string name="system">System</string>
+    <string name="download_failed">Failed</string>
+    <string name="installing">Installing</string>
+    <string name="downloading_wait">Downloading, please wait</string>
+    <string name="install_wait">Installation, please wait</string>
+    <string name="miss_info_contact">Please contact customer service for missing information</string>
+    <string name="release_new_version">Kupa TV release new version</string>
+    <string name="cancel">Cancel</string>
+    <string name="upgrade_prompt">Upgrade prompt</string>
+    <string name="updating_see_progress">The system is being updated to see progress in Settings - system upgrade</string>
+    <string name="ok">OK</string>
+    <string name="type_movie">Movie</string>
+    <string name="type_music">Music</string>
+    <string name="type_game">Game</string>
+    <string name="type_news">News</string>
+    <string name="type_browser">Browser</string>
+    <string name="type_market">App store</string>
+    <string name="type_file">File manager</string>
+    <string name="type_system">System</string>
 
-    <string name="movie">影视生活</string>
-    <string name="music">音乐空间</string>
-    <string name="game">游戏中心</string>
-    <string name="news">新闻资讯</string>
-    <string name="browser">浏览器</string>
-    <string name="market">应用商店</string>
-    <string name="document">文件管理</string>
+    <!-- MoreSettingsActivity -->
+    <string name="setting_more">Setting  |  Advanced Settings</string>
+    <string name="date_and_time">TimeAndDate</string>
+    <string name="language_and_inputmethod">LanguageAndInputmethod</string>
+    <string name="storage">Storage</string>
+    <string name="security">Security</string>
+    <string name="master">Master</string>
+    <string name="development">Development</string>
 
-    <string name="item1">QQ</string>
-    <string name="mainPage_time">09:19</string>
+    <!-- MyAppActivity -->
+    <string name="no_app_to_download">No application, please go to the application market to download your favorite application</string>
+
+    <!-- NetworkActivity -->
+    <string name="setting_network">Setting  |  Network</string>
+    <string name="close">Close</string>
+    <string name="unconnectedness">Unconnectedness</string>
+    <string name="open">Open</string>
+    <string name="connectied">Connectied</string>
+    <string name="note_install_restart">Note: click update and download the update will be installed automatically, and restart.</string>
+
+    <!-- SettingsActivity -->
+    <string name="network">Network</string>
+    <string name="adjustment">Adjustment</string>
+    <string name="more">More</string>
+    <string name="update">Update</string>
+    <string name="Application_management">App management</string>
+    <string name="about">About</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="bluetooth">Bluetooth</string>
 
 </resources>

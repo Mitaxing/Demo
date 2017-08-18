@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.util.Contacts;
+import com.kupaworld.androidtv.util.Utils;
 import com.kupaworld.androidtvwidget.bridge.OpenEffectBridge;
 import com.kupaworld.androidtvwidget.view.FrameMainLayout;
 import com.kupaworld.androidtvwidget.view.MainUpView;
@@ -34,11 +35,14 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private OpenEffectBridge mOpenEffectBridge;
     private View mOldFocus; // 4.3以下版本需要自己保存.
     private Intent intent;
-    private ReflectItemView mRiMore, mRiNetwork, mRiShow, mRiUpdate, mRiApps, mRiAbout;
+    private ReflectItemView mRiMore, mRiNetwork, mRiShow, mRiUpdate, mRiApps, mRiAbout, mOldView;
     private ImageView mIvWifi;
 
     private int[] wifiImg = {R.mipmap.kupatv_wifi_off, R.mipmap.kupatv_wifi_one, R.mipmap.kupatv_wifi_two, R.mipmap.kupatv_wifi_three,
             R.mipmap.kupatv_wifi_four, R.mipmap.kupatv_wifi_no, R.mipmap.ethernet};
+
+    //记录点击的位置
+    private static int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onResume();
         registerReceiver(rssReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
         isEthernetOn();
+        if (mOldView == null)
+            handler.sendEmptyMessageDelayed(1, 50);
     }
 
     @Override
@@ -62,6 +68,12 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onPause();
         if (rssReceiver != null)
             unregisterReceiver(rssReceiver);
+    }
+
+    @Override
+    public void onBackPressed() {
+        position = 0;
+        super.onBackPressed();
     }
 
     @Override
@@ -80,9 +92,48 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                     if (!isEthernetOn())
                         changeWifiIcon(msg.arg1);
                     break;
+
+                case 1:
+                    reFocus();
+                    if (mOldView != null) {
+                        mainUpView1.setFocusView(mOldView, 1.05f);
+                        mOldView.requestFocus();
+                    }
+                    break;
             }
         }
     };
+
+    /**
+     * 根据记录的位置重新赋值聚焦的View
+     */
+    private void reFocus() {
+        switch (position) {
+            case 0:
+                mOldView = mRiNetwork;
+                break;
+
+            case 1:
+                mOldView = mRiShow;
+                break;
+
+            case 2:
+                mOldView = mRiMore;
+                break;
+
+            case 3:
+                mOldView = mRiUpdate;
+                break;
+
+            case 4:
+                mOldView = mRiApps;
+                break;
+
+            case 5:
+                mOldView = mRiAbout;
+                break;
+        }
+    }
 
     private void changeWifiIcon(int strength) {
         int res = wifiImg[strength];
@@ -152,16 +203,23 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         switch (id) {
             case R.id.settings_more:
                 intent = new Intent(this, MoreSettingsActivity.class);
+                mOldView = mRiMore;
+                position = 2;
                 break;
 
             case R.id.settings_network:
                 intent = new Intent(this, NetworkActivity.class);
+                mOldView = mRiNetwork;
+                position = 0;
+
 //                intent = new Intent();
 //                ComponentName componentName = new ComponentName("com.android.setting", "com.android.settings.NetworkActivity");//这个没问题
 //                intent.setComponent(componentName);
                 break;
 
             case R.id.settings_show:
+                position = 1;
+
 //                intent = new Intent();
 //                ComponentName cm = new ComponentName("com.android.settings",
 //                        "com.android.settings.DisplaySettingsActivity");
@@ -170,25 +228,35 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 ComponentName cm = new ComponentName("com.amlogic.projector",
                         "com.amlogic.projector.ShowActivity");
                 intent.setComponent(cm);
+                mOldView = mRiShow;
 //                Utils.openOtherApp(this,"com.amlogic.projector");
 //                hasIntent = false;
                 break;
 
             case R.id.settings_update:
                 intent = new Intent(this, CheckUpdateActivity.class);
+                mOldView = mRiUpdate;
+                position = 3;
+
                 break;
 
             case R.id.settings_apps:
                 intent = new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                mOldView = mRiApps;
+                position = 4;
+
                 break;
 
             case R.id.settings_about:
                 intent = new Intent(Settings.ACTION_DEVICE_INFO_SETTINGS);
+                mOldView = mRiAbout;
+                position = 5;
+
                 break;
         }
 //        if (hasIntent){
-            startActivity(intent);
-            overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+        startActivity(intent);
+        overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
 //        }
     }
 

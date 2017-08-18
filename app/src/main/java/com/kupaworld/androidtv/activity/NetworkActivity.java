@@ -47,7 +47,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.network_blue).setOnClickListener(this);
         findViewById(R.id.network_line).setOnClickListener(this);
 
-        mTvTitle.setText("设置  |  网络设置");
+        mTvTitle.setText(R.string.setting_network);
     }
 
     private void startSettings(String to) {
@@ -67,7 +67,6 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                         "com.android.settings.WifiSettingsActivity");
                 intent.setComponent(cm);
                 startActivity(intent);
-//                startSettings(Settings.ACTION_WIFI_SETTINGS);
                 break;
 
             case R.id.network_blue:
@@ -75,11 +74,11 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.network_line:
-                Intent ethintent = new Intent();
-                ComponentName ethcm = new ComponentName("com.android.settings",
+                Intent ethIntent = new Intent();
+                ComponentName ethCm = new ComponentName("com.android.settings",
                         "com.android.settings.EthernetSettingsActivity");
-                ethintent.setComponent(ethcm);
-                startActivity(ethintent);
+                ethIntent.setComponent(ethCm);
+                startActivity(ethIntent);
                 break;
         }
     }
@@ -88,7 +87,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
         // Wifi的连接速度及信号强度：
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()) {
-            mTvWifi.setText("未开启");
+            mTvWifi.setText(R.string.close);
         } else {
             // WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             WifiInfo info = wifiManager.getConnectionInfo();
@@ -103,7 +102,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                 // Wifi源名称
                 String ssid = info.getSSID();
                 if (strength == 0)
-                    mTvWifi.setText("未连接");
+                    mTvWifi.setText(R.string.unconnectedness);
                 else
                     mTvWifi.setText(ssid);
             }
@@ -114,9 +113,9 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter != null) {
             if (bluetoothAdapter.isEnabled()) {
-                mTvBlue.setText("已开启");
+                mTvBlue.setText(R.string.open);
             } else {
-                mTvBlue.setText("未开启");
+                mTvBlue.setText(R.string.close);
             }
         }
     }
@@ -127,7 +126,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
         if (info == null) return false;
 
         if (info.isConnected()) {
-            mTvLine.setText("已连接");
+            mTvLine.setText(R.string.connectied);
             return true;
         } else {
             return false;
@@ -156,11 +155,11 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
                     0);
             switch (event) {
                 case Contacts.ETHERNET_STATE_ENABLED:
-                    mTvLine.setText("已连接");
+                    mTvLine.setText(R.string.connectied);
                     break;
 
                 case 3:
-                    mTvLine.setText("未连接");
+                    mTvLine.setText(R.string.unconnectedness);
                     break;
             }
         }

@@ -626,15 +626,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         if (state == STARTED) {
             view.setVisibility(View.VISIBLE);
             view.startDownload();
-            mTvTip.setText("开始下载");
+            mTvTip.setText(R.string.installing);
             mTvTip.setVisibility(View.VISIBLE);
             cover.setVisibility(View.VISIBLE);
         } else if (state == LOADING) {
             view.upDateProgress(progress);
-            mTvTip.setText("下载中...");
+            mTvTip.setText(R.string.downloading);
         } else if (state == SUCCESS) {
             try {
-                mTvTip.setText("正在安装");
+                mTvTip.setText(R.string.installing);
                 view.showDownloadOk();
                 downloadManager.removeDownload(info);
                 backgroundInstall(info.getFileSavePath(), info.getFileName());
@@ -642,7 +642,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 e.printStackTrace();
             }
         } else {
-            mTvTip.setText("下载失败");
+            mTvTip.setText(R.string.download_failed);
             view.showDownloadError();
             view.reset();
             Message msg = new Message();
@@ -728,7 +728,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         initState(type);
         switch (type) {
             case Contacts.TYPE_MOVIE:
-                type = "电影";
+                type = getString(R.string.type_movie);
                 hideOption(fdv_movie, mMovieLife, R.string.movie, coverMovie);
                 if (focusViewId == R.id.main_movie) {
                     mMovieIcon.setVisibility(View.VISIBLE);
@@ -739,7 +739,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case Contacts.TYPE_MUSIC:
-                type = "音乐";
+                type = getString(R.string.type_music);
                 hideOption(fdv_music, mMusicArea, R.string.music, coverMusic);
                 if (focusViewId == R.id.main_music) {
                     mMusicIcon.setVisibility(View.VISIBLE);
@@ -750,7 +750,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case Contacts.TYPE_GAME:
-                type = "游戏";
+                type = getString(R.string.type_game);
                 hideOption(fdv_game, mGameCenter, R.string.game, coverGame);
                 if (focusViewId == R.id.main_game) {
                     mGameIcon.setVisibility(View.VISIBLE);
@@ -761,31 +761,31 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case Contacts.TYPE_NEWS:
-                type = "新闻";
+                type = getString(R.string.type_news);
                 hideOption(fdv_news, mTvNews, R.string.news, coverNews);
                 break;
 
             case Contacts.TYPE_BROWSER:
-                type = "浏览器";
+                type = getString(R.string.type_browser);
                 hideOption(fdv_ie, mTvIe, R.string.browser, coverIe);
                 break;
 
             case Contacts.TYPE_MARKET:
-                type = "应用市场";
+                type = getString(R.string.type_market);
                 hideOption(fdv_store, mTvStore, R.string.market, coverStore);
                 break;
 
             case Contacts.TYPE_DOCUMENT:
-                type = "文件管理";
+                type = getString(R.string.type_file);
                 hideOption(fdv_file, mTvFile, R.string.document, coverFile);
                 break;
 
             default:
-                type = "系统";
+                type = getString(R.string.type_system);
                 break;
         }
         if (isSuccess)
-            showToast(type + "应用安装完成");
+            showStringToast(type + getString(R.string.app_install_complete));
     }
 
     /**
@@ -808,10 +808,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private void showUpdateDialog(String msg) {
         final TipDialog dialog = new TipDialog(this, R.style.MyDialog);
         dialog.setEdit(false);
-        dialog.setTitle("Kupa TV发现新版本");
+        dialog.setTitle(R.string.release_new_version);
         dialog.setMessage("Kupa TV " + msg);
-        dialog.setYesText("升级");
-        dialog.setCancleText("取消");
+        dialog.setYesText(getString(R.string.upgrade_immediately));
+        dialog.setCancleText(getString(R.string.cancel));
         dialog.setNoClickListener(new TipDialog.OnNoClickListener() {
             @Override
             public void onNoClick() {
@@ -835,9 +835,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private void showUpdateTips() {
         final TipDialog dialog = new TipDialog(this, R.style.MyDialog);
         dialog.setEdit(false);
-        dialog.setTitle("升级提示");
-        dialog.setMessage("正在更新系统，可至\"设置 - 系统升级\"中查看进度");
-        dialog.setYesText("好的");
+        dialog.setTitle(R.string.upgrade_prompt);
+        dialog.setMessage(getString(R.string.updating_see_progress));
+        dialog.setYesText(getString(R.string.ok));
         dialog.setYesClickListener(new TipDialog.OnYesClickListener() {
             @Override
             public void onYesClick() {
@@ -930,11 +930,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             switch (state) {
                 case STARTED:
                 case LOADING:
-                    showToast("正在下载，请稍后");
+                    showToast(R.string.downloading_wait);
                     break;
 
                 case SUCCESS:
-                    showToast("正在安装，请稍后");
+                    showToast(R.string.install_wait);
                     break;
 
                 case FAILURE:
@@ -963,12 +963,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             } else {//下载
                 String url = app.getUrl();
                 if (TextUtils.isEmpty(url) || url.equals("null"))
-                    showToast("应用信息缺失，请联系客服");
+                    showToast(R.string.miss_info_contact);
                 else {
                     if (Network.isConnected(this)) {
                         addDownload(app.getType(), Contacts.BASE_URI + app.getUrl(), false);
                     } else
-                        showToast("请检查网络连接");
+                        showToast(R.string.check_network);
                 }
             }
         }
@@ -1022,6 +1022,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         }
 
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+        // your stuff or nothing
     }
 
     //初始化组件

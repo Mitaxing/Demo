@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,7 +50,7 @@
                 android:id="@+id/update_info_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发布日期：2017/06/05 13:59:59"
+                tools:text="发布日期：2017/06/05 13:59:59"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h_26" />
 
@@ -61,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:textSize="@dimen/h_36"
                 android:layout_height="wrap_content"
-                android:text="注意：点击更新及下载更新完成后会自动进行安装，并重启。"
+                android:text="@string/note_install_restart"
                 android:textColor="@color/white" />
 
             <Space
