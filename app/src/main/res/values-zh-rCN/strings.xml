@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Kupa TV</string>
 
     <!-- CheckUpdateActivity -->
     <string name="now_is_new_version">当前已是最新版本</string>
