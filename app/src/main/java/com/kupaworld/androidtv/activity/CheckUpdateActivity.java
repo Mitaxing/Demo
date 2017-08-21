@@ -37,7 +37,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by admin on 2016/12/11.
+ * 系统升级页面
+ * Created by MiTa on 2016/12/11.
  */
 
 public class CheckUpdateActivity extends BaseActivity implements View.OnClickListener {

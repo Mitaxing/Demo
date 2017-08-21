@@ -15,13 +15,13 @@ android {
         applicationId "com.kupaworld.androidtv"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 3
+        versionCode 1
         versionName "1.2.2"
         signingConfig signingConfigs.config
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false//开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }

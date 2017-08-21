@@ -8,7 +8,8 @@ import android.widget.TextView;
 import com.kupaworld.androidtv.R;
 
 /**
- * Created by Mita on 2017/6/22.
+ * 系统升级内容界面
+ * Created by MiTa on 2017/6/22.
  */
 
 public class UpdateInfoActivity extends Activity {
