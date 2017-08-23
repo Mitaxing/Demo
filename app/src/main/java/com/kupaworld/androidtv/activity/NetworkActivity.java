@@ -19,13 +19,13 @@ import com.kupaworld.androidtv.R;
 import com.kupaworld.androidtv.util.Contacts;
 
 /**
- * Created by admin on 2016/12/15.
+ * 无线、蓝牙和有线设置页面
+ * Created by MiTa on 2016/12/15.
  */
 
 public class NetworkActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView mTvTitle, mTvWifi, mTvBlue, mTvLine;
-    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void startSettings(String to) {
-        intent = new Intent(to);
+        Intent intent = new Intent(to);
         startActivity(intent);
         overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
     }
@@ -89,7 +89,6 @@ public class NetworkActivity extends BaseActivity implements View.OnClickListene
         if (!wifiManager.isWifiEnabled()) {
             mTvWifi.setText(R.string.close);
         } else {
-            // WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             WifiInfo info = wifiManager.getConnectionInfo();
             int strength = -1;
             if (info.getBSSID() != null) {

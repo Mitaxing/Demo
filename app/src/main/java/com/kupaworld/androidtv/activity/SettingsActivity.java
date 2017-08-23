@@ -198,7 +198,6 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-//        boolean hasIntent = true;
         int id = v.getId();
         switch (id) {
             case R.id.settings_more:
@@ -211,26 +210,15 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 intent = new Intent(this, NetworkActivity.class);
                 mOldView = mRiNetwork;
                 position = 0;
-
-//                intent = new Intent();
-//                ComponentName componentName = new ComponentName("com.android.setting", "com.android.settings.NetworkActivity");//这个没问题
-//                intent.setComponent(componentName);
                 break;
 
             case R.id.settings_show:
                 position = 1;
-
-//                intent = new Intent();
-//                ComponentName cm = new ComponentName("com.android.settings",
-//                        "com.android.settings.DisplaySettingsActivity");
-//                intent.setComponent(cm);
                 intent = new Intent();
                 ComponentName cm = new ComponentName("com.amlogic.projector",
                         "com.amlogic.projector.ShowActivity");
                 intent.setComponent(cm);
                 mOldView = mRiShow;
-//                Utils.openOtherApp(this,"com.amlogic.projector");
-//                hasIntent = false;
                 break;
 
             case R.id.settings_update:
@@ -254,10 +242,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
                 break;
         }
-//        if (hasIntent){
         startActivity(intent);
         overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-//        }
     }
 
     private boolean isEthernetOn() {
