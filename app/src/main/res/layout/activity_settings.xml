@@ -13,7 +13,7 @@
         <include
             layout="@layout/layout_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/h_142" />
+            android:layout_height="@dimen/h_150" />
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
             android:id="@+id/settings_network"
@@ -28,39 +28,26 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/settings_wifi"
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/debug_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/kupatv_setting_network" />
 
-                <FrameLayout
-                    android:layout_width="@dimen/w_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/network"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                    <ImageView
-                        android:id="@+id/settings_wifi"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/debug_bg"
-                        android:padding="14dp"
-                        android:src="@mipmap/kupatv_setting_network" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/network"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -76,38 +63,26 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:layout_width="@dimen/w_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <ImageView
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/file_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/kupatv_setting_adjust" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/file_bg"
-                        android:padding="16dp"
-                        android:src="@mipmap/kupatv_setting_adjust" />
-                </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/adjustment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/adjustment"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -123,38 +98,26 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:layout_width="@dimen/w_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <ImageView
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/apps_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/icon_setting" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/apps_bg"
-                        android:padding="14dp"
-                        android:src="@mipmap/icon_setting" />
-                </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/more"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/more"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -170,38 +133,26 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:layout_width="@dimen/h_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <ImageView
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/setting_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/kupatv_setting_systemupdate" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/setting_bg"
-                        android:src="@mipmap/kupatv_setting_systemupdate"
-                        android:padding="19dp" />
-                </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/update"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/update"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -217,38 +168,25 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/wless_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/kupatv_setting_manageapplication" />
 
-                <FrameLayout
-                    android:layout_width="@dimen/w_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/Application_management"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/wless_bg"
-                        android:padding="20dp"
-                        android:src="@mipmap/kupatv_setting_manageapplication" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/Application_management"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -264,38 +202,26 @@
             app:isShape="true"
             app:radius="@dimen/w_10">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:layout_width="@dimen/w_144"
-                    android:layout_height="@dimen/h_144"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/shadow">
+            <ImageView
+                android:layout_width="@dimen/w_144"
+                android:layout_height="@dimen/h_144"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/h_50"
+                android:background="@drawable/network_bg"
+                android:padding="@dimen/h_28"
+                android:src="@mipmap/kupatv_setting_aboutequipment" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="4px"
-                        android:layout_marginRight="4px"
-                        android:background="@drawable/network_bg"
-                        android:src="@mipmap/kupatv_setting_aboutequipment"
-                        android:padding="19dp"/>
-                </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/h_45"
+                android:text="@string/about"
+                android:textColor="@color/white"
+                android:textSize="@dimen/h_45" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/about"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </RelativeLayout>
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
     </com.kupaworld.androidtvwidget.view.FrameMainLayout>
 

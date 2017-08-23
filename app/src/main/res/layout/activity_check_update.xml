@@ -8,7 +8,7 @@
     <include
         layout="@layout/layout_test_title"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="@dimen/h_150" />
 
     <ImageView
         android:layout_width="@dimen/w_647"

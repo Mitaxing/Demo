@@ -9,41 +9,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="80dp"
-        tools:text="设置  |  高级设置"
+        android:layout_marginLeft="@dimen/w_140"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="@dimen/h_46"
+        tools:text="设置  |  高级设置" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_marginRight="@dimen/w_240"
+        android:layout_height="@dimen/h_50"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="@dimen/w_75"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/mainPage_wifi"
             android:layout_width="@dimen/h_40"
-            android:layout_height="@dimen/h_45"
+            android:layout_height="@dimen/h_50"
+            android:layout_marginTop="@dimen/h_5"
             android:layout_gravity="center_vertical"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/mainPage_bluetooth"
             android:layout_width="@dimen/h_50"
-            android:layout_height="@dimen/h_35"
+            android:layout_height="@dimen/h_38"
+            android:layout_marginTop="@dimen/h_5"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/w_30"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/mainPage_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/w_30"
+            android:textSize="@dimen/h_44"
+            tools:text="13:52" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/mainPage_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="75px"
-        tools:text="13:52"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
 </FrameLayout>

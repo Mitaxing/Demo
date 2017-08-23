@@ -17,13 +17,13 @@
         android:layout_height="@dimen/h_847"
         android:layout_gravity="center"
         android:clipChildren="false"
-        android:horizontalSpacing="16dp"
+        android:horizontalSpacing="@dimen/w_30"
         android:numColumns="6"
         android:padding="16dp"
         android:scrollbarSize="5dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbarThumbVertical="@drawable/scrollbar_style"
-        android:verticalSpacing="16dp" />
+        android:verticalSpacing="@dimen/h_30" />
 
 
     <com.kupaworld.androidtvwidget.view.GridViewTV
@@ -48,12 +48,13 @@
 
     <TextView
         android:id="@+id/tv_noapp"
-        android:layout_width="@dimen/w_1687"
-        android:layout_height="@dimen/h_847"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_marginLeft="@dimen/w_100"
+        android:layout_marginRight="@dimen/w_100"
         android:text="@string/no_app_to_download"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="@dimen/h_50"
         android:visibility="gone" />
 </LinearLayout>

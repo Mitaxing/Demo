@@ -10,7 +10,7 @@
     <include
         layout="@layout/layout_test_title"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="@dimen/h_150" />
 
     <Space
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         <FrameLayout
             android:id="@+id/network_wifi"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/h_125"
             android:background="@drawable/tv_focus_top_bg"
             android:focusable="true"
             android:orientation="horizontal">
@@ -38,26 +38,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/w_60"
                 android:text="WIFI"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_40" />
 
             <TextView
                 android:id="@+id/network_wifi_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="@dimen/w_60"
                 tools:text="KupaSoftware"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/h_35" />
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/network_blue"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/h_125"
             android:background="@drawable/tv_focus_center_bg"
             android:focusable="true"
             android:orientation="horizontal">
@@ -66,26 +66,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/w_60"
                 android:text="@string/bluetooth"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_40" />
 
             <TextView
                 android:id="@+id/network_blue_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="@dimen/w_60"
                 tools:text="未开启"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/h_35" />
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/network_line"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/h_125"
             android:background="@drawable/tv_focus_bottom_bg"
             android:focusable="true"
             android:orientation="horizontal">
@@ -94,20 +94,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/w_60"
                 android:text="@string/ethernet"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_40" />
 
             <TextView
                 android:id="@+id/network_line_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="@dimen/w_60"
                 android:text="@string/unconnectedness"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/h_35" />
         </FrameLayout>
 
     </LinearLayout>

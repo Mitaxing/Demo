@@ -14,7 +14,8 @@ import com.kupaworld.androidtv.entity.AppInfo;
 import java.util.List;
 
 /**
- * Created by admin on 2017/5/22.
+ * 我的应用页面
+ * Created by MiTa on 2017/5/22.
  */
 
 public class AppsAdapter extends BaseAdapter {

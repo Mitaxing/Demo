@@ -53,8 +53,8 @@
 
             <ImageView
                 android:id="@+id/iv_movie"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="@dimen/h_152"
+                android:layout_height="@dimen/h_152"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/h_130"
                 android:src="@mipmap/tip_movie"
@@ -69,7 +69,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/movie"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/h_44"
                 android:visibility="gone" />
 
 
@@ -89,7 +89,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/movie"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/h_44" />
 
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
@@ -146,8 +146,8 @@
 
             <ImageView
                 android:id="@+id/iv_music"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="@dimen/h_152"
+                android:layout_height="@dimen/h_152"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/h_130"
                 android:src="@mipmap/tip_music"
@@ -163,7 +163,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/music"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/h_44"
                 android:visibility="gone" />
 
             <com.kupaworld.androidtv.view.FreshDownloadView
@@ -182,7 +182,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/music"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
@@ -221,8 +221,8 @@
 
             <ImageView
                 android:id="@+id/iv_game"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="@dimen/h_152"
+                android:layout_height="@dimen/h_152"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/h_130"
                 android:src="@mipmap/tip_game"
@@ -237,7 +237,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/game"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/h_44"
                 android:visibility="gone" />
 
             <com.kupaworld.androidtv.view.FreshDownloadView
@@ -256,7 +256,7 @@
                 android:gravity="center_horizontal|center"
                 android:text="@string/game"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/h_44" />
 
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
@@ -278,14 +278,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_235"
-                android:padding="38dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_myapp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -297,7 +297,7 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
                 android:text="@string/my_app"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
@@ -317,14 +317,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_233"
-                android:padding="35dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_news" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -352,7 +352,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/news"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
         <com.kupaworld.androidtvwidget.view.ReflectItemView
@@ -371,14 +371,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_237"
-                android:padding="36dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_browser" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -406,7 +406,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/browser"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
@@ -426,14 +426,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_235"
-                android:padding="37dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_appstore_one" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -461,7 +461,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/market"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
@@ -481,14 +481,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_235"
-                android:padding="37dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_filemanager" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -516,7 +516,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/document"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 
@@ -537,14 +537,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/h_235"
-                android:padding="37dp"
+                android:padding="@dimen/h_50"
                 android:src="@mipmap/kupatv_setting" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/h_30"
+                android:layout_marginRight="@dimen/h_30"
                 android:layout_marginTop="@dimen/h_235"
                 android:background="@color/gray_cc" />
 
@@ -556,7 +556,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/system_setting"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="@dimen/h_44" />
 
         </com.kupaworld.androidtvwidget.view.ReflectItemView>
 

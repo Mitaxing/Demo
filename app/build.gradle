@@ -15,8 +15,8 @@ android {
         applicationId "com.kupaworld.androidtv"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.2.2"
+        versionCode 4
+        versionName "1.2.3"
         signingConfig signingConfigs.config
     }
     buildTypes {

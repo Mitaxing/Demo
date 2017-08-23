@@ -7,10 +7,10 @@
     <TextView
         android:id="@+id/more_settings_item_name"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_marginLeft="30dp"
+        android:layout_height="@dimen/h_110"
+        android:layout_marginLeft="@dimen/w_60"
         android:gravity="center_vertical"
         android:textColor="@color/white"
-        android:textSize="23sp" />
+        android:textSize="@dimen/h_40" />
 
 </LinearLayout>
